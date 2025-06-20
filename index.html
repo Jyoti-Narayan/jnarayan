@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Jyotindra Narayan</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <!-- Load Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Load configuration -->
+    <script src="scripts/config.js"></script>
+</head>
+<body>
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="container">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="#">
+                    <span class="name">Dr. Jyotindra Narayan</span>
+                </a>
+
+                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+
+            <div id="navMenu" class="navbar-menu">
+                <div class="navbar-end">
+                    <a href="#about" class="navbar-item">About</a>
+                    <a href="#research" class="navbar-item">Research</a>
+                    <a href="#experience" class="navbar-item">Experience</a>
+                    <a href="#education" class="navbar-item">Education</a>
+                    <a href="#teaching" class="navbar-item">Teaching</a>
+                    <a href="#publications" class="navbar-item">Publications</a>
+                    <a href="#awards" class="navbar-item">Awards</a>
+                    <a href="#students" class="navbar-item">Students</a>
+                    <a href="#collaborators" class="navbar-item">Collaborators</a>
+                    <a href="#gallery" class="navbar-item">Gallery</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section id="about" class="section">
+            <div class="profile-header">
+                <div class="profile-image-wrapper">
+                    <img src="images/profile.jpeg" alt="Profile Photo" id="profile-image">
+                </div>
+                <div class="profile-content">
+                    <div class="profile-details">
+                        <h1 class="name">Dr. Jyotindra Narayan</h1>
+                        <div class="title-info">
+                            <h2 class="position">Assistant Professor</h2>
+                            <p class="department">Department of Mechanical Engineering</p>
+                            <p class="institution">Indian Institute of Technology Patna, Bihar, India</p>
+                        </div>
+                        <div class="contact-details">
+                            <p><i class="fas fa-map-marker-alt"></i> R407 Block 3 Academic Area, IIT Patna, Bihta, Bihar - 801106</p>
+                            <p><i class="fas fa-envelope"></i> IITP: jnarayan@iitp.ac.in | Personal: jnarayan@gmail.com</p>
+                            <p><i class="fas fa-phone"></i> +91-8826417916</p>
+                        </div>
+                        <div class="profile-actions">
+                            <a href="https://scholar.google.co.in/citations?user=sgnY6r4AAAAJ&hl=en" class="action-btn scholar"><i class="fas fa-graduation-cap"></i> Google Scholar</a>
+                            <a href="https://www.linkedin.com/in/jyotindra-narayan-a54214101/" class="action-btn linkedin"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                            <a href="https://www.iitp.ac.in/people-6/faculty/2427:dr-jyotindra-narayan" class="action-btn iitp"><i class="fas fa-university"></i> IIT Patna Webpage</a>
+                            <a href="https://orcid.org/0000-0002-2499-6039" class="action-btn orcid"><i class="fab fa-orcid"></i> ORCID</a>
+                            <a href="#" class="action-btn cv"><i class="fas fa-file-alt"></i> View CV</a>
+                        </div>
+                    </div>
+                    <div class="profile-bio">
+                        <p>Dr. Jyotindra Narayan is an Assistant Professor in the Department of Mechanical Engineering at the Indian Institute of Technology Patna. His research interests include Rehabilitation Robotics, Human-Robot Interaction, and Control Systems. He completed his Ph.D. from IIT Guwahati, focusing on developing innovative solutions for rehabilitation robotics. Prior to joining IIT Patna, he held positions at Imperial College London and the University of Bayreuth, where he contributed to cutting-edge research in robotics and control systems.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                    <div class="columns is-multiline">
+                        <div class="column is-8">
+                            <div class="box ongoing-projects-section">
+                                <h3 class="title is-4">Ongoing Projects</h3>
+                                <div class="projects-wrapper">
+                                    <div class="carousel">
+                                        <div class="carousel-container" id="projects-container">
+                                            <!-- Projects will be inserted here by JavaScript -->
+                                        </div>
+                                        <div class="carousel-navigation">
+                                            <button class="carousel-nav prev" aria-label="Previous project">
+                                                <span class="icon">
+                                                    <i class="fas fa-chevron-left"></i>
+                                                </span>
+                                            </button>
+                                            <button class="carousel-nav next" aria-label="Next project">
+                                                <span class="icon">
+                                                    <i class="fas fa-chevron-right"></i>
+                                                </span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="column is-4">
+                            <div class="box noticeboard-section">
+                                <h3 class="title is-4">Latest Notices</h3>
+                                <div class="notice-wrapper">
+                                    <div id="notice-container" class="notice-container"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </section>
+
+        <section id="research" class="section">
+            <h3>Research</h3>
+            <div class="section-content">
+                <div class="research-grid">
+                    <div class="research-item">
+                        <a href="category.html?category=Medical%20Robotics" class="category-link">
+                            <h4>Medical Robotics</h4>
+                        </a>
+                    </div>
+                    
+                    <div class="research-item">
+                        <a href="category.html?category=Robust%20Control" class="category-link">
+                            <h4>Robust Control</h4>
+                        </a>
+                    </div>
+                    
+                    <div class="research-item">
+                        <a href="category.html?category=Data-Driven%20Control" class="category-link">
+                            <h4>Data-Driven Control</h4>
+                        </a>
+                    </div>
+                    
+                    <div class="research-item">
+                        <a href="category.html?category=Human-Robot%20Interaction" class="category-link">
+                            <h4>Human-Robot Interaction</h4>
+                        </a>
+                    </div>
+                    
+                    <div class="research-item">
+                        <a href="category.html?category=Rehabilitation%20Robotics" class="category-link">
+                            <h4>Rehabilitation Robotics</h4>
+                        </a>
+                    </div>
+                    
+                    <div class="research-item">
+                        <a href="category.html?category=Bioengineering" class="category-link">
+                            <h4>Bioengineering</h4>
+                        </a>
+                    </div>
+                    
+                    <div class="research-item">
+                        <a href="category.html?category=Gait%20Analysis" class="category-link">
+                            <h4>Gait Analysis</h4>
+                        </a>
+                    </div>
+                    
+                    <div class="research-item">
+                        <a href="category.html?category=Generative%20AI%20for%20Time%20Series%20Forecasting" class="category-link">
+                            <h4>Generative AI for Time Series Forecasting</h4>
+                        </a>
+                    </div>
+                    
+                    <div class="research-item">
+                        <a href="category.html?category=Predictive%20Modeling%20for%20Neurodegenerative%20diseases" class="category-link">
+                            <h4>Predictive Modeling for Neurodegenerative diseases</h4>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="section">
+            <h3>Experience</h3>
+            <div class="section-content">
+                <div class="experience-grid">
+                    <div id="professional-experience" class="experience-column"></div>
+                    <div id="administrative-experience" class="experience-column"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="education" class="section">
+            <h3>Education</h3>
+            <div class="section-content">
+                <div class="education-items">
+                    <div class="education-item phd-item">
+                        <div class="education-content">
+                            <h4>Ph.D. in Rehabilitation Robotics</h4>
+                            <p class="institution">Indian Institute of Technology Guwahati, India</p>
+                            <p class="duration">2017 - 2023</p>
+                        </div>
+                        <div class="education-image">
+                            <img src="images/phd_image.gif" alt="Ph.D. Research Visualization" class="phd-gif">
+                        </div>
+                    </div>
+
+                    <div class="education-item me-item">
+                        <div class="education-content">
+                            <h4>M.E. in CAD/CAM Engineering</h4>
+                            <p class="institution">Thapar Institute of Engineering and Technology, India</p>
+                            <p class="duration">2015 - 2017</p>
+                        </div>
+                        <div class="education-image">
+                            <img src="images/cad-cam.png" alt="CAD/CAM Engineering Visualization" class="me-img">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="teaching" class="section">
+            <h3>Teaching</h3>
+            <div class="section-content">
+                <div id="teaching-list"></div>
+            </div>
+        </section>
+
+        <section id="publications" class="section">
+            <h3>Publications</h3>
+            <div id="publications-list" class="section-content">
+                <p class="publications-note">
+                    For a comprehensive and up-to-date list, please refer to my 
+                    <a href="#" class="scholar-link">Google Scholar profile</a> or 
+                    <a href="#" class="cv-link">Curriculum Vitae</a>.
+                </p>
+
+                <div class="journal-articles">
+                    <h4>Journal Articles</h4>
+                    <div id="journal-articles-list"></div>
+                </div>
+                
+                <div class="conference-articles">
+                    <h4>Conference Articles</h4>
+                    <div id="conference-articles-list"></div>
+                </div>
+                
+                <div class="book-chapters">
+                    <h4>Book Chapters</h4>
+                    <div id="book-chapters-list"></div>
+                </div>
+                
+                <div class="patents">
+                    <h4>Patents</h4>
+                    <div id="patents-list"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="awards" class="section">
+            <h3>Awards</h3>
+            <div class="section-content">
+                <div class="awards-category">
+                    <h4>Awards/Honours</h4>
+                    <div id="awards-list"></div>
+                </div>
+
+                <div class="awards-category">
+                    <h4>Editorial Roles</h4>
+                    <div id="editorial-list"></div>
+                </div>
+
+                <div class="awards-category">
+                    <h4>Reviewer Roles</h4>
+                    <div id="reviewer-list"></div>
+                </div>
+
+                <div class="awards-category">
+                    <h4>Technical Programme Committee Roles</h4>
+                    <div id="technical-list"></div>
+                </div>
+
+                <div class="awards-category">
+                    <h4>Advisory Committee Roles</h4>
+                    <div id="advisory-list"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="students" class="section">
+            <h3>Students</h3>
+            <div class="present-students">
+                <h3>Present Students</h3>
+                
+                <div class="masters-students">
+                    <h4><i class="fas fa-graduation-cap" style="color: #0066ff;"></i> Masters Students</h4>
+                    <div id="masters-grid" class="students-grid">
+                        <div class="student-item">
+                            <div class="student-info">
+                                <i class="fas fa-user"></i>
+                                <a href="#" class="student-name">Sinaya Naik</a>
+                            </div>
+                            <div class="student-year">
+                                <i class="fas fa-calendar"></i>
+                                <span>2026</span>
+                            </div>
+                            <div class="student-thesis">
+                                <i class="fas fa-book"></i>
+                                <span>Physics Informed Neural Networks</span>
+                            </div>
+                        </div>
+                        <div class="student-item">
+                            <div class="student-info">
+                                <i class="fas fa-user"></i>
+                                <a href="#" class="student-name">Sushant Kumar</a>
+                            </div>
+                            <div class="student-year">
+                                <i class="fas fa-calendar"></i>
+                                <span>2026</span>
+                            </div>
+                            <div class="student-thesis">
+                                <i class="fas fa-book"></i>
+                                <span>Gait Rehabilitation Robotics</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bachelors-students">
+                    <h4><i class="fas fa-graduation-cap" style="color: #0066ff;"></i> Bachelors Students</h4>
+                    <div id="bachelors-grid" class="students-grid">
+                        <div class="student-item">
+                            <div class="student-info">
+                                <i class="fas fa-user"></i>
+                                <a href="#" class="student-name">Some Btech</a>
+                            </div>
+                            <div class="student-year">
+                                <i class="fas fa-calendar"></i>
+                                <span>2026</span>
+                            </div>
+                            <div class="student-thesis">
+                                <i class="fas fa-book"></i>
+                                <span>Advanced Robot Dynamics</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="intern-students">
+                    <h4><i class="fas fa-graduation-cap" style="color: #0066ff;"></i> Intern</h4>
+                    <div id="intern-grid" class="students-grid">
+                        <!-- Intern entries will be populated dynamically -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="collaborators" class="section">
+            <h3>Collaborators</h3>
+            <div id="collaborators-content"></div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="gallery" class="section">
+            <h3>Gallery</h3>
+            <div class="box gallery-section">
+                <div class="gallery-wrapper">
+                    <div class="carousel">
+                        <div class="carousel-container" id="gallery-container">
+                            <!-- Images will be inserted here by JavaScript -->
+                        </div>
+                        <div class="carousel-navigation">
+                            <button class="carousel-nav prev" aria-label="Previous slide">
+                                <span class="icon">
+                                    <i class="fas fa-chevron-left"></i>
+                                </span>
+                            </button>
+                            <button class="carousel-nav next" aria-label="Next slide">
+                                <span class="icon">
+                                    <i class="fas fa-chevron-right"></i>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; <span id="current-year">2024</span> All Rights Reserved</p>
+        </div>
+    </footer>
+
+    <!-- Load Scripts -->
+    <script src="scripts/script.js"></script>
+    <script src="scripts/animations.js"></script>
+    <script src="scripts/gallery.js"></script>
+    <script src="scripts/notice.js"></script>
+    <script src="scripts/publications.js"></script>
+    <script src="scripts/teaching.js"></script>
+    <script src="scripts/projects.js"></script>
+    <script src="scripts/students.js"></script>
+    <script src="scripts/awards.js"></script>
+    <script src="scripts/collaborators.js"></script>
+</body>
+</html> 
