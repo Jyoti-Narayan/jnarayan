@@ -1,30 +1,83 @@
 // Supabase configuration - CHANGE ONLY HERE
-const SUPABASE_URL = 'https://ktiiyeuvsvbqnrhqbwmr.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt0aWl5ZXV2c3ZicW5yaHFid21yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk1NjI1OTIsImV4cCI6MjA2NTEzODU5Mn0.yPZY4oo70R4UXl4grSLyLRfNLJzFg1EYMeoKjpZy6tA';
+const SUPABASE_URL = 'https://adejcdhcxiwypphenyxv.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFkZWpjZGhjeGl3eXBwaGVueXh2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTAzOTkzNjUsImV4cCI6MjA2NTk3NTM2NX0.BHzMcHen9VOuU5n39uCF_OXy8Dyw0mofL0EN08Td5NM';
 
 // Initialize the Supabase client
 function initSupabase() {
     if (typeof supabase === 'undefined') {
-        console.error('Supabase is not loaded');
+        console.error('Supabase library is not loaded');
         return null;
     }
-    return supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-}
-
-// Initialize immediately when script loads (for pages that load config.js after supabase)
-if (typeof supabase !== 'undefined') {
-    window.supabaseClient = initSupabase();
-} else {
-    // If supabase is not loaded yet, wait for it
-    window.supabaseClient = null;
-}
-
-// Make initialization function available globally
-window.initSupabase = initSupabase;
-
-// Also initialize when DOM is ready (fallback)
-document.addEventListener('DOMContentLoaded', () => {
-    if (!window.supabaseClient && typeof supabase !== 'undefined') {
-        window.supabaseClient = initSupabase();
+    
+    try {
+        console.log('Initializing Supabase client with URL:', SUPABASE_URL);
+        const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        console.log('Supabase client initialized successfully');
+        return client;
+    } catch (error) {
+        console.error('Error initializing Supabase client:', error);
+        return null;
     }
-}); 
+}
+
+// Function to wait for Supabase to be loaded
+function waitForSupabase() {
+    return new Promise((resolve) => {
+        if (typeof supabase !== 'undefined') {
+            resolve();
+            return;
+        }
+        
+        // Check every 100ms for up to 10 seconds
+        let attempts = 0;
+        const maxAttempts = 100;
+        
+        const checkInterval = setInterval(() => {
+            attempts++;
+            if (typeof supabase !== 'undefined') {
+                clearInterval(checkInterval);
+                resolve();
+            } else if (attempts >= maxAttempts) {
+                clearInterval(checkInterval);
+                console.error('Supabase library failed to load after 10 seconds');
+                resolve();
+            }
+        }, 100);
+    });
+}
+
+// Initialize Supabase client
+async function initializeSupabaseClient() {
+    console.log('Starting Supabase initialization...');
+    await waitForSupabase();
+    
+    if (!window.supabaseClient) {
+        window.supabaseClient = initSupabase();
+        
+        if (window.supabaseClient) {
+            // Test the connection
+            try {
+                const { data, error } = await window.supabaseClient
+                    .from('projects')
+                    .select('count', { count: 'exact', head: true });
+                
+                if (error) {
+                    console.warn('Supabase connection test failed:', error);
+                } else {
+                    console.log('Supabase connection test successful');
+                }
+            } catch (testError) {
+                console.warn('Supabase connection test error:', testError);
+            }
+        }
+    }
+    
+    return window.supabaseClient;
+}
+
+// Make functions available globally
+window.initSupabase = initSupabase;
+window.initializeSupabaseClient = initializeSupabaseClient;
+
+// Initialize immediately
+initializeSupabaseClient(); 

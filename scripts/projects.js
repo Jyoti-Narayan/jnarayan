@@ -3,6 +3,13 @@ document.addEventListener('DOMContentLoaded', async function() {
     async function fetchProjects() {
         try {
             console.log('Initializing projects fetch...');
+            
+            // Wait for Supabase client to be ready
+            if (!window.supabaseClient && window.initializeSupabaseClient) {
+                console.log('Waiting for Supabase client to initialize...');
+                await window.initializeSupabaseClient();
+            }
+            
             if (!window.supabaseClient) {
                 throw new Error('Supabase client not initialized');
             }

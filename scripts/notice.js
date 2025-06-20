@@ -8,6 +8,12 @@ let isResetting = false;
 
 async function fetchNotices() {
     try {
+        // Wait for Supabase client to be ready
+        if (!window.supabaseClient && window.initializeSupabaseClient) {
+            console.log('Waiting for Supabase client to initialize...');
+            await window.initializeSupabaseClient();
+        }
+        
         if (!window.supabaseClient) {
             throw new Error('Supabase client not initialized');
         }
@@ -160,20 +166,16 @@ function cleanup() {
 }
 
 // Initialize notices when the DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    // Small delay to ensure Supabase is initialized
-    setTimeout(() => {
-        if (!window.supabaseClient) {
-            console.error('Supabase client not initialized');
-            const container = document.getElementById('notice-container');
-            if (container) {
-                container.innerHTML = '<p class="has-text-centered">Error: Database connection not available</p>';
-            }
-            return;
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        await fetchNotices();
+    } catch (error) {
+        console.error('Error initializing notices:', error);
+        const container = document.getElementById('notice-container');
+        if (container) {
+            container.innerHTML = '<p class="has-text-centered">Error: Database connection not available</p>';
         }
-        
-        fetchNotices();
-    }, 100);
+    }
 });
 
 // Cleanup when page is unloaded

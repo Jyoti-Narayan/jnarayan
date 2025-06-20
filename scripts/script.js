@@ -288,6 +288,12 @@ function createExperienceItem(experience) {
 // Function to fetch and display experiences
 async function loadExperiences() {
     try {
+        // Wait for Supabase client to be ready
+        if (!window.supabaseClient && window.initializeSupabaseClient) {
+            console.log('Waiting for Supabase client to initialize...');
+            await window.initializeSupabaseClient();
+        }
+        
         if (!window.supabaseClient) {
             throw new Error('Supabase client not initialized');
         }
