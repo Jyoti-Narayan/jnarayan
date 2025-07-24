@@ -139,14 +139,16 @@ function displayPublications(containerId, publications, sectionId) {
         publicationsByYear[year].forEach(pub => {
             html += `
                 <div class="publication-item">
-                    <div class="publication-title">${pub.title}</div>
-                    ${pub.url ? `
-                        <div class="publication-links">
-                            <a href="${pub.url}" target="_blank" rel="noopener noreferrer">
-                                <i class="fas fa-external-link-alt"></i> View Publication
-                            </a>
-                        </div>
-                    ` : ''}
+                    <div class="publication-content">
+                        <div class="publication-title">${pub.title}</div>
+                        ${pub.url ? `
+                            <div class="publication-links">
+                                <a href="${pub.url}" target="_blank" rel="noopener noreferrer">
+                                    <i class="fas fa-external-link-alt"></i> View
+                                </a>
+                            </div>
+                        ` : ''}
+                    </div>
                 </div>
             `;
         });
