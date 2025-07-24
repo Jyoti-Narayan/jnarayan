@@ -47,7 +47,7 @@ async function fetchAwards(type) {
 
 // Initialize all award sections
 async function initializeAwards() {
-    const types = ['Awards', 'Editorial', 'Reviewer', 'Technical', 'Advisory'];
+    const types = ['Honours', 'Editorial', 'Reviewer', 'Technical', 'Advisory'];
     
     const promises = types.map(type => fetchAwards(type));
     await Promise.all(promises);

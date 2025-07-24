@@ -35,7 +35,7 @@ create table public.awards (
     (
       type = any (
         array[
-          'Awards'::text,
+          'Honours'::text,
           'Editorial'::text,
           'Reviewer'::text,
           'Technical'::text,
