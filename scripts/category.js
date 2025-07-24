@@ -19,10 +19,11 @@ document.addEventListener('DOMContentLoaded', async function() {
         document.getElementById('publications-container').style.display = 'none';
 
         // Fetch publications from each table
-        const [journalArticles, conferenceArticles, bookChapters, patents] = await Promise.all([
+        const [journalArticles, conferenceArticles, bookChapters, books, patents] = await Promise.all([
             fetchPublications('journal_articles', category),
             fetchPublications('conference_articles', category),
             fetchPublications('book_chapters', category),
+            fetchPublications('books', category),
             fetchPublications('patents', category)
         ]);
 
@@ -34,6 +35,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         displayPublications('journal-articles-list', journalArticles, 'journal-articles');
         displayPublications('conference-articles-list', conferenceArticles, 'conference-articles');
         displayPublications('book-chapters-list', bookChapters, 'book-chapters');
+        displayPublications('books-list', books, 'books');
         displayPublications('patents-list', patents, 'patents');
 
     } catch (error) {
@@ -100,7 +102,7 @@ function displayPublications(containerId, publications, sectionId) {
 }
 
 function hideEmptySections() {
-    const sections = ['journal-articles', 'conference-articles', 'book-chapters', 'patents'];
+    const sections = ['journal-articles', 'conference-articles', 'book-chapters', 'books', 'patents'];
     sections.forEach(section => {
         const container = document.getElementById(`${section}-list`);
         if (container.innerHTML.trim() === '') {

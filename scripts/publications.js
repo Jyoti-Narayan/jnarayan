@@ -92,10 +92,11 @@ async function fetchPublications(tableName) {
 document.addEventListener('DOMContentLoaded', async () => {
     try {
         // Fetch all publication types
-        const [journalArticles, conferenceArticles, bookChapters, patents] = await Promise.all([
+        const [journalArticles, conferenceArticles, bookChapters, books, patents] = await Promise.all([
             fetchPublications('journal_articles'),
             fetchPublications('conference_articles'),
             fetchPublications('book_chapters'),
+            fetchPublications('books'),
             fetchPublications('patents')
         ]);
 
@@ -103,10 +104,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         renderPublicationsByYear(journalArticles, 'journal-articles-list');
         renderPublicationsByYear(conferenceArticles, 'conference-articles-list');
         renderPublicationsByYear(bookChapters, 'book-chapters-list');
+        renderPublicationsByYear(books, 'books-list');
         renderPublicationsByYear(patents, 'patents-list');
     } catch (error) {
         console.error('Error initializing:', error);
-            ['journal-articles-list', 'conference-articles-list', 'book-chapters-list', 'patents-list'].forEach(id => {
+            ['journal-articles-list', 'conference-articles-list', 'book-chapters-list', 'books-list', 'patents-list'].forEach(id => {
                 const container = document.getElementById(id);
                 if (container) {
                 container.innerHTML = '<p class="error-message">Error loading publications. Please try again later.</p>';

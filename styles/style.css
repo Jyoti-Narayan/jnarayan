@@ -555,6 +555,7 @@ main {
 .journal-articles,
 .conference-articles,
 .book-chapters,
+.books,
 .patents {
     margin-bottom: 1rem;
 }
@@ -578,6 +579,7 @@ main {
 .journal-articles h4,
 .conference-articles h4,
 .book-chapters h4,
+.books h4,
 .patents h4 {
     font-size: 2rem;
     margin-bottom: 0.5rem;
@@ -729,6 +731,7 @@ main {
     .journal-articles h4,
     .conference-articles h4,
     .book-chapters h4,
+    .books h4,
     .patents h4 {
         font-size: 1.8rem;
     }
@@ -780,6 +783,7 @@ main {
     .journal-articles h4,
     .conference-articles h4,
     .book-chapters h4,
+    .books h4,
     .patents h4 {
         font-size: 1.6rem;
         margin-bottom: 1rem;
@@ -2974,6 +2978,7 @@ a:hover {
 .journal-articles h4,
 .conference-articles h4,
 .book-chapters h4,
+.books h4,
 .patents h4 {
     font-size: var(--h4-size);
     margin-bottom: 1.5rem;

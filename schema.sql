@@ -11,6 +11,7 @@ END $$;
 -- Drop existing tables if they exist (in correct order to handle dependencies)
 DROP TABLE IF EXISTS public.awards CASCADE;
 DROP TABLE IF EXISTS public.book_chapters CASCADE;
+DROP TABLE IF EXISTS public.books CASCADE;
 DROP TABLE IF EXISTS public.collaborators CASCADE;
 DROP TABLE IF EXISTS public.conference_articles CASCADE;
 DROP TABLE IF EXISTS public.experiences CASCADE;
@@ -55,6 +56,33 @@ create table public.book_chapters (
   category text null,
   constraint book_chapters_pkey primary key (id),
   constraint book_chapters_category_check check (
+    (
+      category = any (
+        array[
+          'Medical Robotics'::text,
+          'Robust Control'::text,
+          'Data-Driven Control'::text,
+          'Human-Robot Interaction'::text,
+          'Rehabilitation Robotics'::text,
+          'Bioengineering'::text,
+          'Gait Analysis'::text,
+          'Generative AI for Time Series Forecasting'::text,
+          'Predictive Modeling for Neurodegenerative diseases'::text
+        ]
+      )
+    )
+  )
+) TABLESPACE pg_default;
+
+create table public.books (
+  id uuid not null default extensions.uuid_generate_v4 (),
+  title text not null,
+  year integer not null,
+  created_at timestamp with time zone not null default timezone ('utc'::text, now()),
+  url text null,
+  category text null,
+  constraint books_pkey primary key (id),
+  constraint books_category_check check (
     (
       category = any (
         array[
@@ -257,6 +285,7 @@ create table public.teaching (
 -- Enable Row Level Security (RLS) for all tables
 ALTER TABLE public.awards ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.book_chapters ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.books ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.collaborators ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.conference_articles ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.experiences ENABLE ROW LEVEL SECURITY;
@@ -281,6 +310,12 @@ CREATE POLICY "Enable read access for all users" ON public.book_chapters FOR SEL
 CREATE POLICY "Enable insert for authenticated users only" ON public.book_chapters FOR INSERT WITH CHECK (auth.role() = 'authenticated');
 CREATE POLICY "Enable update for authenticated users only" ON public.book_chapters FOR UPDATE USING (auth.role() = 'authenticated');
 CREATE POLICY "Enable delete for authenticated users only" ON public.book_chapters FOR DELETE USING (auth.role() = 'authenticated');
+
+-- Books table policies
+CREATE POLICY "Enable read access for all users" ON public.books FOR SELECT USING (true);
+CREATE POLICY "Enable insert for authenticated users only" ON public.books FOR INSERT WITH CHECK (auth.role() = 'authenticated');
+CREATE POLICY "Enable update for authenticated users only" ON public.books FOR UPDATE USING (auth.role() = 'authenticated');
+CREATE POLICY "Enable delete for authenticated users only" ON public.books FOR DELETE USING (auth.role() = 'authenticated');
 
 -- Collaborators table policies
 CREATE POLICY "Enable read access for all users" ON public.collaborators FOR SELECT USING (true);
