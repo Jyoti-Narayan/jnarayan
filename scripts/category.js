@@ -18,6 +18,8 @@ document.addEventListener('DOMContentLoaded', async function() {
         document.getElementById('loading').style.display = 'block';
         document.getElementById('publications-container').style.display = 'none';
 
+        console.log(`Fetching publications for category: "${category}"`);
+
         // Fetch publications from each table
         const [journalArticles, conferenceArticles, bookChapters, books, patents] = await Promise.all([
             fetchPublications('journal_articles', category),
@@ -26,6 +28,14 @@ document.addEventListener('DOMContentLoaded', async function() {
             fetchPublications('books', category),
             fetchPublications('patents', category)
         ]);
+
+        console.log('All publications fetched:', {
+            journalArticles: journalArticles.length,
+            conferenceArticles: conferenceArticles.length,
+            bookChapters: bookChapters.length,
+            books: books.length,
+            patents: patents.length
+        });
 
         // Hide loading and show publications container
         document.getElementById('loading').style.display = 'none';
@@ -40,19 +50,63 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     } catch (error) {
         console.error('Error fetching publications:', error);
-        document.getElementById('loading').textContent = 'Error loading publications. Please try again later.';
+        const loadingElement = document.getElementById('loading');
+        if (loadingElement) {
+            loadingElement.textContent = 'Error loading publications. Please try again later.';
+        }
     }
 });
 
-async function fetchPublications(table, category) {
-    const { data, error } = await window.supabaseClient
-        .from(table)
-        .select('*')
-        .eq('category', category)
-        .order('year', { ascending: false });
+// Function to extract categories from comma-separated string
+function extractCategories(categoryString) {
+    if (!categoryString) return [];
+    return categoryString.split(',').map(cat => cat.trim()).filter(cat => cat.length > 0);
+}
 
-    if (error) throw error;
-    return data || [];
+// Function to check if a publication matches a category
+function publicationMatchesCategory(publication, targetCategory) {
+    if (!publication.category) {
+        console.log(`Publication "${publication.title}" has no category`);
+        return false;
+    }
+    
+    const categories = extractCategories(publication.category);
+    const matches = categories.includes(targetCategory);
+    
+    console.log(`Publication "${publication.title}" has categories: [${categories.join(', ')}], looking for: "${targetCategory}", matches: ${matches}`);
+    
+    return matches;
+}
+
+async function fetchPublications(table, category) {
+    try {
+        const { data, error } = await window.supabaseClient
+            .from(table)
+            .select('*')
+            .order('year', { ascending: false });
+
+        if (error) {
+            console.error(`Error fetching from ${table}:`, error);
+            throw error;
+        }
+        
+        console.log(`Fetched ${data?.length || 0} publications from ${table}`);
+        
+        // Filter publications that match the category
+        const filteredData = (data || []).filter(publication => {
+            const matches = publicationMatchesCategory(publication, category);
+            if (matches) {
+                console.log(`Publication "${publication.title}" matches category "${category}"`);
+            }
+            return matches;
+        });
+        
+        console.log(`Found ${filteredData.length} publications matching category "${category}" in ${table}`);
+        return filteredData;
+    } catch (error) {
+        console.error(`Error in fetchPublications for ${table}:`, error);
+        throw error;
+    }
 }
 
 function displayPublications(containerId, publications, sectionId) {

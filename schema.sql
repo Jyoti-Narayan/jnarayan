@@ -54,24 +54,7 @@ create table public.book_chapters (
   created_at timestamp with time zone not null default timezone ('utc'::text, now()),
   url text null,
   category text null,
-  constraint book_chapters_pkey primary key (id),
-  constraint book_chapters_category_check check (
-    (
-      category = any (
-        array[
-          'Medical Robotics'::text,
-          'Robust Control'::text,
-          'Data-Driven Control'::text,
-          'Human-Robot Interaction'::text,
-          'Rehabilitation Robotics'::text,
-          'Bioengineering'::text,
-          'Gait Analysis'::text,
-          'Generative AI for Time Series Forecasting'::text,
-          'Predictive Modeling for Neurodegenerative diseases'::text
-        ]
-      )
-    )
-  )
+  constraint book_chapters_pkey primary key (id)
 ) TABLESPACE pg_default;
 
 create table public.books (
@@ -81,24 +64,7 @@ create table public.books (
   created_at timestamp with time zone not null default timezone ('utc'::text, now()),
   url text null,
   category text null,
-  constraint books_pkey primary key (id),
-  constraint books_category_check check (
-    (
-      category = any (
-        array[
-          'Medical Robotics'::text,
-          'Robust Control'::text,
-          'Data-Driven Control'::text,
-          'Human-Robot Interaction'::text,
-          'Rehabilitation Robotics'::text,
-          'Bioengineering'::text,
-          'Gait Analysis'::text,
-          'Generative AI for Time Series Forecasting'::text,
-          'Predictive Modeling for Neurodegenerative diseases'::text
-        ]
-      )
-    )
-  )
+  constraint books_pkey primary key (id)
 ) TABLESPACE pg_default;
 
 create table public.collaborators (
@@ -119,24 +85,7 @@ create table public.conference_articles (
   created_at timestamp with time zone not null default timezone ('utc'::text, now()),
   url text null,
   category text null,
-  constraint conference_articles_pkey primary key (id),
-  constraint conference_articles_category_check check (
-    (
-      category = any (
-        array[
-          'Medical Robotics'::text,
-          'Robust Control'::text,
-          'Data-Driven Control'::text,
-          'Human-Robot Interaction'::text,
-          'Rehabilitation Robotics'::text,
-          'Bioengineering'::text,
-          'Gait Analysis'::text,
-          'Generative AI for Time Series Forecasting'::text,
-          'Predictive Modeling for Neurodegenerative diseases'::text
-        ]
-      )
-    )
-  )
+  constraint conference_articles_pkey primary key (id)
 ) TABLESPACE pg_default;
 
 create table public.experiences (
@@ -172,24 +121,7 @@ create table public.journal_articles (
   created_at timestamp with time zone not null default timezone ('utc'::text, now()),
   url text null,
   category text null,
-  constraint journal_articles_pkey primary key (id),
-  constraint journal_articles_category_check check (
-    (
-      category = any (
-        array[
-          'Medical Robotics'::text,
-          'Robust Control'::text,
-          'Data-Driven Control'::text,
-          'Human-Robot Interaction'::text,
-          'Rehabilitation Robotics'::text,
-          'Bioengineering'::text,
-          'Gait Analysis'::text,
-          'Generative AI for Time Series Forecasting'::text,
-          'Predictive Modeling for Neurodegenerative diseases'::text
-        ]
-      )
-    )
-  )
+  constraint journal_articles_pkey primary key (id)
 ) TABLESPACE pg_default;
 
 create table public.noticeboard (
@@ -208,24 +140,7 @@ create table public.patents (
   created_at timestamp with time zone not null default timezone ('utc'::text, now()),
   url text null,
   category text null,
-  constraint patents_pkey primary key (id),
-  constraint patents_category_check check (
-    (
-      category = any (
-        array[
-          'Medical Robotics'::text,
-          'Robust Control'::text,
-          'Data-Driven Control'::text,
-          'Human-Robot Interaction'::text,
-          'Rehabilitation Robotics'::text,
-          'Bioengineering'::text,
-          'Gait Analysis'::text,
-          'Generative AI for Time Series Forecasting'::text,
-          'Predictive Modeling for Neurodegenerative diseases'::text
-        ]
-      )
-    )
-  )
+  constraint patents_pkey primary key (id)
 ) TABLESPACE pg_default;
 
 create table public.projects (
