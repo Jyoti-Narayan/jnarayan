@@ -402,9 +402,11 @@ main {
 }
 
 /* Education Section */
-.education-items {
+.education-grid {
     display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
+    margin: 0;
 }
 
 .education-item {
@@ -423,9 +425,9 @@ main {
 .education-item.phd-item,
 .education-item.me-item {
     display: flex;
-    gap: 2.5rem;
+    gap: 1.5rem;
     align-items: flex-start;
-    padding: 2rem;
+    padding: 1.5rem;
     line-height: 1.6;
 }
 
@@ -436,8 +438,8 @@ main {
 
 .education-image {
     flex-shrink: 0;
-    width: 300px;
-    height: auto;
+    width: 200px;
+    height: 150px;
     border-radius: 8px;
     overflow: hidden;
     display: flex;
@@ -449,16 +451,16 @@ main {
 .phd-gif,
 .me-img {
     width: 100%;
-    height: auto;
-    object-fit: contain;
+    height: 100%;
+    object-fit: cover;
     border-radius: 8px;
 }
 
 .education-item h4 {
     color: var(--text-secondary);
-    font-size: 1.45rem;
+    font-size: 1.25rem;
     font-weight: 600;
-    margin-bottom: 0.8rem;
+    margin-bottom: 0.5rem;
     line-height: 1.4;
     transition: color 0.3s ease;
 }
@@ -469,32 +471,78 @@ main {
 
 .education-item .institution {
     color: var(--text-light);
-    font-size: 1.25rem;
-    margin-bottom: 0.6rem;
+    font-size: 1.1rem;
+    margin-bottom: 0.4rem;
     font-weight: 500;
     line-height: 1.4;
 }
 
 .education-item .duration {
     color: var(--primary-accent);
-    font-size: 1.15rem;
+    font-size: 1rem;
     font-style: italic;
     font-weight: 500;
     opacity: 0.9;
+}
+
+@media screen and (max-width: 1200px) {
+    .education-grid {
+        gap: 1.5rem;
+    }
+
+    .education-item.phd-item,
+    .education-item.me-item {
+        padding: 1.25rem;
+        gap: 1.25rem;
+    }
+
+    .education-image {
+        width: 180px;
+        height: 135px;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .education-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .education-item.phd-item,
+    .education-item.me-item {
+        padding: 1.25rem;
+    }
+
+    .education-image {
+        width: 160px;
+        height: 120px;
+    }
 }
 
 @media screen and (max-width: 768px) {
     .education-item.phd-item,
     .education-item.me-item {
         flex-direction: column;
-        gap: 1.5rem;
-        padding: 1.25rem;
+        gap: 1rem;
+        padding: 1rem;
     }
 
     .education-image {
         width: 100%;
-        max-width: 400px;
-        margin: 0 auto;
+        height: 200px;
+        margin: 0;
+    }
+
+    .education-item h4 {
+        font-size: 1.2rem;
+    }
+
+    .education-item .institution {
+        font-size: 1.05rem;
+    }
+
+    .education-item .duration {
+        font-size: 0.95rem;
     }
 }
 
