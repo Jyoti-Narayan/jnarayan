@@ -72,7 +72,7 @@ async function renderResearchCategories() {
                 'Bioengineering',
                 'Gait Analysis',
                 'Generative AI for Time Series Forecasting',
-                'Predictive Modeling for Neurodegenerative diseases',
+                'Predictive Modeling for Neurodegenerative Diseases',
                 'Cyber-Physical Systems'
             );
         }
