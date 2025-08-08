@@ -1056,6 +1056,34 @@ main {
     font-size: 0.875rem;
 }
 
+/* Category page compact sizing */
+.category-page .publication-section h2 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.25rem;
+}
+
+.category-page .publication-year {
+    font-size: 1rem;
+    margin: 0.6rem 0 0.4rem;
+}
+
+.category-page .publication-item {
+    padding: 0.5rem 0.75rem;
+    margin-bottom: 0.4rem;
+}
+
+.category-page .publication-title {
+    font-size: 1.1rem;
+    line-height: 1.35;
+    margin-bottom: 0.25rem;
+}
+
+.category-page .publication-links a {
+    font-size: 0.65rem;
+    padding: 0.2rem 0.4rem;
+}
+
 @media (max-width: 768px) {
     .category-page {
         padding: 1rem;
