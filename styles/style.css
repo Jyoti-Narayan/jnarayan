@@ -1146,6 +1146,50 @@ main {
     margin-bottom: 2rem;
 }
 
+/* Students headings hierarchy */
+#students > h3 {
+    font-size: var(--h3-size);
+}
+
+#students .present-students > h3,
+#students .past-students > h3 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin: 0 0 1rem 0;
+    padding-bottom: 0.6rem;
+    border-bottom: 2px solid var(--primary-accent);
+}
+
+.masters-students h4,
+.bachelors-students h4,
+.intern-students h4 {
+    font-size: 1.4rem;
+}
+
+@media screen and (max-width: 768px) {
+    #students .present-students > h3,
+    #students .past-students > h3 {
+        font-size: 1.6rem;
+    }
+    .masters-students h4,
+    .bachelors-students h4,
+    .intern-students h4 {
+        font-size: 1.25rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    #students .present-students > h3,
+    #students .past-students > h3 {
+        font-size: 1.45rem;
+    }
+    .masters-students h4,
+    .bachelors-students h4,
+    .intern-students h4 {
+        font-size: 1.15rem;
+    }
+}
+
 .student-item {
     padding: 1.5rem;
     background: var(--bg-hover);
