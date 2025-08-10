@@ -1305,8 +1305,13 @@ main {
 
 .award-chip .award-title {
     color: var(--text-secondary);
-    font-size: 1.05rem;
+    font-size: 1.3rem;
     font-weight: 600;
+    line-height: 1.2;
+}
+
+.award-chip:hover .award-title {
+    color: var(--primary-accent);
 }
 
 @media screen and (max-width: 768px) {
@@ -1314,7 +1319,7 @@ main {
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
         gap: 0.5rem;
     }
-    .award-chip .award-title { font-size: 1rem; }
+    .award-chip .award-title { font-size: 0.95rem; }
 }
 
 @media screen and (max-width: 480px) {
@@ -1323,7 +1328,7 @@ main {
         gap: 0.45rem;
     }
     .award-chip { padding: 0.45rem 0.6rem; }
-    .award-chip .award-title { font-size: 0.95rem; }
+    .award-chip .award-title { font-size: 0.9rem; }
 }
 
 .award-content {
