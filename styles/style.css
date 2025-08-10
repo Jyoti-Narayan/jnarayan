@@ -1305,7 +1305,7 @@ main {
     font-size: 1rem;
     font-weight: bold;
     flex-shrink: 0;
-    margin-top: 0.1rem;
+    margin-top: 0.2rem; /* slightly lower than publications */
     line-height: 1;
     opacity: 0.8;
     transition: opacity 0.2s ease;
@@ -1352,7 +1352,7 @@ main {
     font-size: 1rem;
     font-weight: bold;
     flex-shrink: 0;
-    margin-top: 0.1rem;
+    margin-top: 0.2rem; /* slightly lower than publications */
     line-height: 1;
     opacity: 0.8;
 }
