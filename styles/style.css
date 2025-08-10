@@ -2998,6 +2998,25 @@ a:hover {
     color: var(--primary-accent);
 }
 
+/* Teaching session and role headers */
+.teaching-session {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary-accent);
+    margin: 0.8rem 0 0.4rem;
+    padding-left: 0.5rem;
+    border-left: 4px solid var(--primary-accent);
+}
+
+.teaching-role {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin: 0.4rem 0 0.25rem;
+    padding-left: 0.5rem;
+    border-left: 3px solid rgba(144, 30, 62, 0.25);
+}
+
 @media screen and (max-width: 768px) {
     .teaching-item {
         padding: 0.4rem 0.6rem;
@@ -3011,6 +3030,9 @@ a:hover {
     .teaching-item .bullet {
         font-size: 0.9rem;
     }
+
+    .teaching-session { font-size: 1.1rem; }
+    .teaching-role { font-size: 1rem; }
 }
 
 @media screen and (max-width: 480px) {
@@ -3026,6 +3048,9 @@ a:hover {
     .teaching-item .bullet {
         font-size: 0.8rem;
     }
+
+    .teaching-session { font-size: 1.05rem; }
+    .teaching-role { font-size: 0.95rem; }
 }
 
 /* Research Section */

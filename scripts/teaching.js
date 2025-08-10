@@ -1,35 +1,63 @@
-// Function to render teaching items
 function renderTeachingItems(courses) {
     const container = document.getElementById('teaching-list');
-    
-    let html = '<div class="teaching-list">';
-    courses.forEach(course => {
-        html += `
-            <div class="teaching-item">
-                <span class="bullet">•</span>
-                <span class="course-name">${course.course_name}</span>
-            </div>
-        `;
+
+    const termOrder = { Autumn: 2, Fall: 2, Spring: 1, Summer: 0 };
+    // role classification removed per requirement
+
+    const getSession = (text) => {
+        const m = text.match(/\b(Spring|Autumn|Fall|Summer)\s+\d{4}\b/i);
+        if (!m) return 'Other';
+        const [termRaw, year] = m[0].split(/\s+/);
+        const term = termRaw.charAt(0).toUpperCase() + termRaw.slice(1).toLowerCase();
+        return `${term} ${year}`;
+    };
+
+    const sessionKey = (session) => {
+        const [term, year] = session.split(' ');
+        const ord = termOrder[term] ?? -1;
+        return `${year}-${String(ord).padStart(2, '0')}`;
+    };
+
+    const stripSession = (text) => {
+        const re = /(,?\s*)?\b(Spring|Autumn|Fall|Summer)\s+\d{4}\b\.?$/i;
+        return text.replace(re, '').replace(/\s+,\s*$/, '').trim();
+    };
+
+    const grouped = {};
+    courses.forEach(({ course_name }) => {
+        const session = getSession(course_name);
+        grouped[session] = grouped[session] || [];
+        grouped[session].push(stripSession(course_name));
     });
-    html += '</div>';
-    
+
+    const sessions = Object.keys(grouped).sort((a, b) => sessionKey(b).localeCompare(sessionKey(a)));
+
+    let html = '';
+    sessions.forEach((session) => {
+        if (session !== 'Other') {
+            html += `<div class="teaching-session">${session}</div>`;
+        }
+        html += '<div class="teaching-list">';
+        grouped[session].forEach((name) => {
+            html += `
+                <div class="teaching-item">
+                    <span class="bullet">•</span>
+                    <span class="course-name">${name}</span>
+                </div>
+            `;
+        });
+        html += '</div>';
+    });
+
     container.innerHTML = html;
 }
 
-// Fetch and render teaching
 async function fetchTeaching() {
     const { data, error } = await supabaseClient
         .from('teaching')
-        .select('course_name')
-        .order('course_name');
-    
-    if (error) {
-        console.error('Error fetching teaching:', error);
-        return;
-    }
-    
+        .select('course_name');
+    if (error) return;
     renderTeachingItems(data);
 }
 
-// Initialize teaching section
-document.addEventListener('DOMContentLoaded', fetchTeaching); 
+document.addEventListener('DOMContentLoaded', fetchTeaching);
