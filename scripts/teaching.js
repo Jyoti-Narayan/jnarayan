@@ -1,13 +1,14 @@
 function renderTeachingItems(courses) {
     const container = document.getElementById('teaching-list');
 
-    const termOrder = { Autumn: 2, Fall: 2, Spring: 1, Summer: 0 };
+    const termOrder = { Spring: 1, Summer: 1.5, Autumn: 2, Fall: 2, Monsoon: 2, Winter: 3 };
     // role classification removed per requirement
 
     const getSession = (text) => {
-        const m = text.match(/\b(Spring|Autumn|Fall|Summer)\s+\d{4}\b/i);
+        const m = text.match(/\b(Spring|Summer|Autumn|Fall|Winter|Monsoon)\s*(?:[-/])?\s*(\d{4})\b/i);
         if (!m) return 'Other';
-        const [termRaw, year] = m[0].split(/\s+/);
+        const termRaw = m[1];
+        const year = m[2];
         const term = termRaw.charAt(0).toUpperCase() + termRaw.slice(1).toLowerCase();
         return `${term} ${year}`;
     };
@@ -19,8 +20,12 @@ function renderTeachingItems(courses) {
     };
 
     const stripSession = (text) => {
-        const re = /(,?\s*)?\b(Spring|Autumn|Fall|Summer)\s+\d{4}\b\.?$/i;
-        return text.replace(re, '').replace(/\s+,\s*$/, '').trim();
+        // Remove trailing session markers like ", Spring 2025" or "- Autumn-2025" with optional period and spaces
+        const re = new RegExp(
+            String.raw`(?:[,;\s\-–—]*)\b(?:Spring|Summer|Autumn|Fall|Winter|Monsoon)\s*(?:[-/])?\s*\d{4}\b\s*\.?\s*$`,
+            'i'
+        );
+        return text.replace(re, '').replace(/\s*[,:;\-–—]+\s*$/, '').trim();
     };
 
     const grouped = {};
