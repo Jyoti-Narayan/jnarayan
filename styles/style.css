@@ -1276,6 +1276,13 @@ main {
     gap: 0.6rem;
 }
 
+/* Force exactly 4 columns on large screens */
+@media screen and (min-width: 1200px) {
+    .awards-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
 .award-chip {
     display: inline-flex;
     align-items: center;
@@ -1297,7 +1304,7 @@ main {
 
 .award-chip .bullet {
     color: var(--primary-accent);
-    font-size: 0.9rem;
+    font-size: 1.3rem;
     font-weight: bold;
     flex-shrink: 0;
     opacity: 0.8;
@@ -1305,7 +1312,7 @@ main {
 
 .award-chip .award-title {
     color: var(--text-secondary);
-    font-size: 1.3rem;
+    font-size: 1.32rem;
     font-weight: 600;
     line-height: 1.2;
 }

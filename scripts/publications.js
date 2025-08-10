@@ -44,11 +44,14 @@ function renderPublicationsByYear(publications, containerId) {
     
     let html = '';
     years.forEach(year => {
+        const items = groupedPubs[year]
+            .slice()
+            .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
         html += `
             <div class="year-section">
                 <h5 class="year-heading">${year}</h5>
                 <div class="publications-list">
-                    ${groupedPubs[year].map(pub => {
+                    ${items.map(pub => {
                         const title = pub.url 
                             ? `<a href="${pub.url}" target="_blank" rel="noopener noreferrer" class="pub-title">${pub.title}</a>`
                             : `<span class="pub-title">${pub.title}</span>`;
@@ -78,7 +81,8 @@ async function fetchPublications(tableName) {
         const { data, error } = await window.supabaseClient
             .from(tableName)
             .select('*')
-            .order('year', { ascending: false });
+            .order('year', { ascending: false })
+            .order('created_at', { ascending: false });
         
         if (error) throw error;
         return data || [];
