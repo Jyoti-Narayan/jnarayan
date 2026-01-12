@@ -16,7 +16,7 @@ async function fetchCollaborators() {
             console.error('Error fetching collaborators:', error);
             return [];
         }
-        
+
         return data || [];
     } catch (error) {
         console.error('Error fetching collaborators:', error);
@@ -46,15 +46,18 @@ function renderCollaborators(collaborators) {
             <div class="collaborators-grid">
                 ${collaborators.map(collaborator => `
                     <div class="collaborator-card">
+                        <div class="collaborator-image">
+                            ${collaborator.image_url
+                ? `<img src="${collaborator.image_url}" alt="${collaborator.name}" loading="lazy">`
+                : `<div class="collaborator-placeholder"><i class="fas fa-user-circle"></i></div>`
+            }
+                        </div>
                         <div class="collaborator-header">
                             <div class="collaborator-name">
-                                <span class="icon">
-                                    <i class="fas fa-user-circle"></i>
-                                </span>
-                                ${collaborator.url ? 
-                                    `<a href="${collaborator.url}" target="_blank" rel="noopener noreferrer">${collaborator.name}</a>` :
-                                    `<span>${collaborator.name}</span>`
-                                }
+                                ${collaborator.url ?
+                `<a href="${collaborator.url}" target="_blank" rel="noopener noreferrer">${collaborator.name}</a>` :
+                `<span>${collaborator.name}</span>`
+            }
                             </div>
                         </div>
                         <div class="collaborator-details">

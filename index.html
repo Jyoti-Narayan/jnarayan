@@ -1,38 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dr. Jyotindra Narayan</title>
+    <title>SHRI Lab | IIT Patna</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="styles/style.css">
     <!-- Load Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <!-- Load configuration -->
     <script src="scripts/config.js"></script>
-    <meta name="description" content="Official website of Dr. Jyotindra Narayan, Assistant Professor at IIT Patna. Research in Rehabilitation Robotics, Human-Robot Interaction, Control Systems, and more.">
-    <meta name="keywords" content="Jyotindra Narayan, IIT Patna, Robotics, Rehabilitation Robotics, Human-Robot Interaction, Control Systems, Research, Publications, Mechanical Engineering, India">
+    <meta name="description"
+        content="SHRI Lab - Smart Healthcare & Rehabilitation Innovations Lab at IIT Patna. Research in Rehabilitation Robotics, Human-Robot Interaction, Control Systems, and more.">
+    <meta name="keywords"
+        content="SHRI Lab, IIT Patna, Robotics, Rehabilitation Robotics, Human-Robot Interaction, Control Systems, Dr. Jyotindra Narayan, Research Lab, Mechanical Engineering">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://jnarayan.in/">
-    <meta property="og:title" content="Dr. Jyotindra Narayan - IIT Patna">
-    <meta property="og:description" content="Researcher in Rehabilitation Robotics, Human-Robot Interaction, and Control Systems. Assistant Professor at IIT Patna.">
+    <meta property="og:title" content="SHRI Lab | IIT Patna">
+    <meta property="og:description"
+        content="Smart Healthcare & Rehabilitation Innovations Lab - Research in Rehabilitation Robotics, Human-Robot Interaction, and Control Systems.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://jnarayan.in/">
-    <meta property="og:image" content="https://jnarayan.in/images/profile.jpeg">
-    <meta property="og:site_name" content="Dr. Jyotindra Narayan">
+    <meta property="og:image" content="https://jnarayan.in/images/shri-lab-logo.png">
+    <meta property="og:site_name" content="SHRI Lab">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Dr. Jyotindra Narayan - IIT Patna">
-    <meta name="twitter:description" content="Researcher in Rehabilitation Robotics, Human-Robot Interaction, and Control Systems. Assistant Professor at IIT Patna.">
-    <meta name="twitter:image" content="https://jnarayan.in/images/profile.jpeg">
-    <link rel="icon" type="image/jpeg" href="images/fevicon.png">
+    <meta name="twitter:title" content="SHRI Lab | IIT Patna">
+    <meta name="twitter:description" content="Smart Healthcare & Rehabilitation Innovations Lab at IIT Patna">
+    <meta name="twitter:image" content="https://jnarayan.in/images/shri-lab-logo.png">
+    <link rel="icon" type="image/png" href="images/fevicon.png">
 </head>
+
 <body>
+    <!-- Navigation -->
     <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
         <div class="container">
             <div class="navbar-brand">
                 <a class="navbar-item" href="#">
-                    <span class="name">Dr. Jyotindra Narayan</span>
+                    <span class="name">SHRI Lab</span>
                 </a>
 
                 <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
@@ -46,55 +54,54 @@
                 <div class="navbar-end">
                     <a href="#about" class="navbar-item">About</a>
                     <a href="#research" class="navbar-item">Research</a>
+                    <a href="#projects" class="navbar-item">Projects</a>
+                    <a href="#facilities" class="navbar-item">Facilities</a>
+                    <a href="#sponsors" class="navbar-item">Sponsors</a>
+                    <a href="#pi" class="navbar-item">PI</a>
                     <a href="#experience" class="navbar-item">Experience</a>
-                    <a href="#education" class="navbar-item">Education</a>
-                    <a href="#teaching" class="navbar-item">Teaching</a>
                     <a href="#publications" class="navbar-item">Publications</a>
                     <a href="#awards" class="navbar-item">Awards</a>
-                    <a href="#students" class="navbar-item">Students</a>
+                    <a href="#members" class="navbar-item">Members</a>
                     <a href="#collaborators" class="navbar-item">Collaborators</a>
                     <a href="#gallery" class="navbar-item">Gallery</a>
+                    <a href="#contact" class="navbar-item">Contact</a>
                 </div>
             </div>
         </div>
     </nav>
 
     <main class="container">
-        <section id="about" class="section">
-            <div class="container">
-                <div class="box profile-header">
-                    <div class="profile-image-wrapper">
-                        <img src="images/profile.jpeg" alt="Profile Photo" id="profile-image">
-                    </div>
-                    <div class="profile-content">
-                        <div class="profile-details">
-                            <h1 class="name">Dr. Jyotindra Narayan</h1>
-                            <div class="title-info">
-                                <h2 class="position">Assistant Professor</h2>
-                                <p class="department">Department of Mechanical Engineering</p>
-                                <p class="institution">Indian Institute of Technology Patna, Bihar, India</p>
-                            </div>
-                            <div class="contact-details">
-                                <p><i class="fas fa-map-marker-alt"></i> R412 Block III, Academic Complex, IIT Patna, Bihta, Bihar - 801106</p>
-                                <p><i class="fas fa-envelope"></i> IITP: jnarayan@iitp.ac.in || Personal: n.jyotindra@gmail.com</p>
-                                <p><i class="fas fa-phone"></i> +91-6115233946</p>
-                            </div>
-                            <div class="profile-actions">
-                                <a href="https://scholar.google.co.in/citations?user=sgnY6r4AAAAJ&hl=en" class="action-btn scholar"><i class="fas fa-graduation-cap"></i> Google Scholar</a>
-                                <a href="https://www.linkedin.com/in/jyotindra-narayan-a54214101/" class="action-btn linkedin"><i class="fab fa-linkedin"></i> LinkedIn</a>
-                                <a href="https://www.iitp.ac.in/people-6/faculty/2427:dr-jyotindra-narayan" class="action-btn iitp"><i class="fas fa-university"></i> IIT Patna Webpage</a>
-                                <a href="https://orcid.org/0000-0002-2499-6039" class="action-btn orcid"><i class="fab fa-orcid"></i> ORCID</a>
-                                <a href="https://drive.google.com/file/d/1LFg1AXHS1-XeYYKwCjbFo_RFyZ0MLlPl/view?usp=sharing" class="action-btn cv"><i class="fas fa-file-alt"></i> View CV</a>
-                            </div>
-                        </div>
-                        <div class="profile-bio">
-                            <p>Dr. Jyotindra Narayan is an Assistant Professor in the Department of Mechanical Engineering at the Indian Institute of Technology Patna. His work focuses on developing robotic systems that assist people in rehabilitation and help humans interact safely and naturally with machines. He earned his Ph.D. from IIT Guwahati, where he developed innovative robotic solutions for movement recovery. Before joining IIT Patna, he worked at Imperial College London and the University of Bayreuth, where he contributed to advanced research in human-robot interaction and control.</p>
-                        </div>
-                    </div>
+        <!-- Lab Banner Section -->
+        <section id="lab-banner" class="hero-banner">
+            <div class="banner-content">
+                <div class="banner-logo-left">
+                    <img src="images/iit_patna_logo.png" alt="IIT Patna Logo" class="institution-logo">
+                </div>
+                <div class="banner-text">
+                    <h1 class="lab-name">SHRI Lab</h1>
+                    <p class="lab-full-name">Smart Healthcare & Rehabilitation Innovations Lab</p>
+                </div>
+                <div class="banner-logo-right">
+                    <img src="images/shri_lab_logo.png" alt="SHRI Lab Logo" class="lab-logo">
                 </div>
             </div>
+        </section>
 
+        <!-- About Section with Ongoing Projects, Notices, Gallery -->
+        <section id="about" class="section">
             <div class="container">
+                <div class="about-intro">
+                    <h3>About SHRI Lab</h3>
+                    <p class="about-text">
+                        Welcome to the Smart Healthcare & Rehabilitation Innovations Lab (SHRI Lab) under the direction
+                        of Dr. Jyotindra Narayan in the <a href="https://me.iitp.ac.in/">Department of Mechanical
+                            Engineering</a> at <a href="https://www.iitp.ac.in/">IIT Patna</a>. SHRI Lab focuses on
+                        developing cutting-edge robotic systems that assist people in rehabilitation and enable safe,
+                        natural human-robot interaction. Our research integrates advanced control systems, biomechanics,
+                        and machine learning to create innovative solutions for healthcare applications.
+                    </p>
+                </div>
+
                 <div class="content-section">
                     <div class="columns is-multiline">
                         <div class="column is-8">
@@ -135,15 +142,88 @@
             </div>
         </section>
 
+        <!-- Research Areas Section -->
         <section id="research" class="section">
-            <h3>Research</h3>
+            <h3>Research Areas</h3>
             <div class="section-content">
-                <div class="research-grid">
-                    <!-- Research categories will be loaded dynamically -->
+                <div id="research-areas-grid" class="research-areas-grid">
+                    <!-- Research areas will be loaded dynamically from Supabase -->
                 </div>
             </div>
         </section>
 
+        <!-- Funded Projects Section -->
+        <section id="projects" class="section">
+            <h3>Funded Projects</h3>
+            <div class="section-content">
+                <div id="funded-projects-table">
+                    <!-- Projects table will be loaded dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Facilities Section -->
+        <section id="facilities" class="section">
+            <h3>Facilities</h3>
+            <div class="section-content">
+                <div id="facilities-grid" class="facilities-grid">
+                    <!-- Facilities will be loaded dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Sponsors Section -->
+        <section id="sponsors" class="section">
+            <h3>Our Sponsors</h3>
+            <div class="section-content">
+                <div id="sponsors-grid" class="sponsors-grid">
+                    <!-- Sponsors will be loaded dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Principal Investigator Section -->
+        <section id="pi" class="section">
+            <h3>Principal Investigator</h3>
+            <div class="section-content">
+                <div class="pi-profile">
+                    <div class="pi-image-wrapper">
+                        <img src="images/profile.jpeg" alt="Dr. Jyotindra Narayan" id="pi-image">
+                    </div>
+                    <div class="pi-content">
+                        <div class="pi-details">
+                            <h2 class="pi-name">Dr. Jyotindra Narayan</h2>
+                            <div class="pi-title-info">
+                                <h4 class="pi-position">Assistant Professor</h4>
+                                <p class="pi-department">Department of Mechanical Engineering</p>
+                                <p class="pi-institution">Indian Institute of Technology Patna, Bihar, India</p>
+                            </div>
+                            <div class="pi-contact-details">
+                                <p><i class="fas fa-map-marker-alt"></i> R412 Block III, Academic Complex, IIT Patna,
+                                    Bihta, Bihar - 801106</p>
+                                <p><i class="fas fa-envelope"></i> IITP: jnarayan@iitp.ac.in || Personal:
+                                    n.jyotindra@gmail.com</p>
+                                <p><i class="fas fa-phone"></i> +91-6115233946</p>
+                            </div>
+                            <div class="pi-actions">
+                                <a href="https://scholar.google.co.in/citations?user=sgnY6r4AAAAJ&hl=en"
+                                    class="action-btn scholar"><i class="fas fa-graduation-cap"></i> Google Scholar</a>
+                                <a href="https://www.linkedin.com/in/jyotindra-narayan-a54214101/"
+                                    class="action-btn linkedin"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                                <a href="https://www.iitp.ac.in/people-6/faculty/2427:dr-jyotindra-narayan"
+                                    class="action-btn iitp"><i class="fas fa-university"></i> IIT Patna</a>
+                                <a href="https://orcid.org/0000-0002-2499-6039" class="action-btn orcid"><i
+                                        class="fab fa-orcid"></i> ORCID</a>
+                                <a href="https://drive.google.com/file/d/1LFg1AXHS1-XeYYKwCjbFo_RFyZ0MLlPl/view?usp=sharing"
+                                    class="action-btn cv"><i class="fas fa-file-alt"></i> View CV</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
         <section id="experience" class="section">
             <h3>Experience</h3>
             <div class="section-content">
@@ -154,6 +234,7 @@
             </div>
         </section>
 
+        <!-- Education Section -->
         <section id="education" class="section">
             <h3>Education</h3>
             <div class="section-content">
@@ -165,7 +246,8 @@
                             <p class="duration">July 2017 - January 2023</p>
                         </div>
                         <div class="education-image">
-                            <img src="https://adejcdhcxiwypphenyxv.supabase.co/storage/v1/object/public/gallery//PhD_RR.jpg" alt="Ph.D. Research Visualization" class="phd-gif">
+                            <img src="https://adejcdhcxiwypphenyxv.supabase.co/storage/v1/object/public/gallery//PhD_RR.jpg"
+                                alt="Ph.D. Research Visualization" class="phd-gif">
                         </div>
                     </div>
 
@@ -176,13 +258,15 @@
                             <p class="duration">July 2015 - June 2017</p>
                         </div>
                         <div class="education-image">
-                            <img src="https://adejcdhcxiwypphenyxv.supabase.co/storage/v1/object/public/gallery//ME_CADCAM.jpg" alt="CAD/CAM Engineering Visualization" class="me-img">
+                            <img src="https://adejcdhcxiwypphenyxv.supabase.co/storage/v1/object/public/gallery//ME_CADCAM.jpg"
+                                alt="CAD/CAM Engineering Visualization" class="me-img">
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- Teaching Section -->
         <section id="teaching" class="section">
             <h3>Teaching</h3>
             <div class="section-content">
@@ -190,35 +274,38 @@
             </div>
         </section>
 
+        <!-- Publications Section -->
         <section id="publications" class="section">
             <h3>Publications</h3>
             <div id="publications-list" class="section-content">
                 <p class="publications-note">
-                    For a comprehensive and up-to-date list, please refer to my 
-                    <a href="https://scholar.google.co.in/citations?user=sgnY6r4AAAAJ&hl=en"</i> Google Scholar profile</a> or
-                    <a href="https://drive.google.com/file/d/1LFg1AXHS1-XeYYKwCjbFo_RFyZ0MLlPl/view?usp=sharing"</i>Curriculum Vitae</a>.
+                    For a comprehensive and up-to-date list, please refer to my
+                    <a href="https://scholar.google.co.in/citations?user=sgnY6r4AAAAJ&hl=en"> Google Scholar profile</a>
+                    or
+                    <a href="https://drive.google.com/file/d/1LFg1AXHS1-XeYYKwCjbFo_RFyZ0MLlPl/view?usp=sharing">Curriculum
+                        Vitae</a>.
                 </p>
 
                 <div class="books">
                     <h4>Books</h4>
                     <div id="books-list"></div>
                 </div>
-                
+
                 <div class="journal-articles">
                     <h4>Journal Articles</h4>
                     <div id="journal-articles-list"></div>
                 </div>
-                
+
                 <div class="conference-articles">
                     <h4>Conference Articles</h4>
                     <div id="conference-articles-list"></div>
                 </div>
-                
+
                 <div class="book-chapters">
                     <h4>Book Chapters</h4>
                     <div id="book-chapters-list"></div>
                 </div>
-                
+
                 <div class="patents">
                     <h4>Patents</h4>
                     <div id="patents-list"></div>
@@ -226,6 +313,7 @@
             </div>
         </section>
 
+        <!-- Awards Section -->
         <section id="awards" class="section">
             <h3>Awards</h3>
             <div class="section-content">
@@ -256,74 +344,40 @@
             </div>
         </section>
 
-        <section id="students" class="section">
-            <h3>Students</h3>
-            <div class="present-students">
-                <h3>Present Students</h3>
-                
-                <div class="masters-students">
-                    <h4><i class="fas fa-graduation-cap" style="color: #0066ff;"></i> Masters Students</h4>
-                    <div id="masters-grid" class="students-grid">
-                        <div class="student-item">
-                            <div class="student-info">
-                                <i class="fas fa-user"></i>
-                                <a href="#" class="student-name">Sinaya Naik</a>
-                            </div>
-                            <div class="student-year">
-                                <i class="fas fa-calendar"></i>
-                                <span>2026</span>
-                            </div>
-                            <div class="student-thesis">
-                                <i class="fas fa-book"></i>
-                                <span>Physics Informed Neural Networks</span>
-                            </div>
-                        </div>
-                        <div class="student-item">
-                            <div class="student-info">
-                                <i class="fas fa-user"></i>
-                                <a href="#" class="student-name">Sushant Kumar</a>
-                            </div>
-                            <div class="student-year">
-                                <i class="fas fa-calendar"></i>
-                                <span>2026</span>
-                            </div>
-                            <div class="student-thesis">
-                                <i class="fas fa-book"></i>
-                                <span>Gait Rehabilitation Robotics</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="bachelors-students">
-                    <h4><i class="fas fa-graduation-cap" style="color: #0066ff;"></i> Bachelors Students</h4>
-                    <div id="bachelors-grid" class="students-grid">
-                        <div class="student-item">
-                            <div class="student-info">
-                                <i class="fas fa-user"></i>
-                                <a href="#" class="student-name">Some Btech</a>
-                            </div>
-                            <div class="student-year">
-                                <i class="fas fa-calendar"></i>
-                                <span>2026</span>
-                            </div>
-                            <div class="student-thesis">
-                                <i class="fas fa-book"></i>
-                                <span>Advanced Robot Dynamics</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <!-- Members Section -->
+        <section id="members" class="section">
+            <h3>Members</h3>
 
-                <div class="intern-students">
-                    <h4><i class="fas fa-graduation-cap" style="color: #0066ff;"></i> Intern</h4>
-                    <div id="intern-grid" class="students-grid">
-                        <!-- Intern entries will be populated dynamically -->
-                    </div>
+            <div class="doctoral-students">
+                <h4><i class="fas fa-graduation-cap" style="color: #901E3E;"></i> Doctoral Students</h4>
+                <div id="doctoral-grid" class="students-grid">
+                    <!-- Doctoral students will be populated dynamically, sorted by year -->
+                </div>
+            </div>
+
+            <div class="masters-students">
+                <h4><i class="fas fa-graduation-cap" style="color: #0066ff;"></i> Masters Students</h4>
+                <div id="masters-grid" class="students-grid">
+                    <!-- Masters students will be populated dynamically, sorted by year -->
+                </div>
+            </div>
+
+            <div class="bachelors-students">
+                <h4><i class="fas fa-graduation-cap" style="color: #00aa55;"></i> Bachelors Students</h4>
+                <div id="bachelors-grid" class="students-grid">
+                    <!-- Bachelors students will be populated dynamically, sorted by year -->
+                </div>
+            </div>
+
+            <div class="intern-students">
+                <h4><i class="fas fa-user-graduate" style="color: #ff9900;"></i> Interns</h4>
+                <div id="intern-grid" class="students-grid">
+                    <!-- Intern entries will be populated dynamically, sorted by year -->
                 </div>
             </div>
         </section>
 
+        <!-- Collaborators Section -->
         <section id="collaborators" class="section">
             <h3>Collaborators</h3>
             <div id="collaborators-content"></div>
@@ -356,9 +410,42 @@
         </section>
     </main>
 
-    <footer>
-        <div class="container">
-            <p>&copy; <span id="current-year">2024</span> All Rights Reserved</p>
+    <!-- Footer with Address and Google Maps -->
+    <footer id="contact" class="site-footer">
+        <div class="footer-content">
+            <div class="footer-info">
+                <h3><i class="fas fa-map-marker-alt"></i> Contact Us</h3>
+                <div class="footer-lab-name">SHRI Lab</div>
+                <div class="contact-item">
+                    <i class="fas fa-building"></i>
+                    <p>R412 Block III, Academic Complex<br>IIT Patna, Bihta, Bihar - 801106, India</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <p><a href="mailto:jnarayan@iitp.ac.in">jnarayan@iitp.ac.in</a></p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <p><a href="tel:+916115233946">+91-6115233946</a></p>
+                </div>
+                <div class="footer-social">
+                    <a href="https://scholar.google.co.in/citations?user=sgnY6r4AAAAJ&hl=en" title="Google Scholar"><i
+                            class="fas fa-graduation-cap"></i></a>
+                    <a href="https://www.linkedin.com/in/jyotindra-narayan-a54214101/" title="LinkedIn"><i
+                            class="fab fa-linkedin"></i></a>
+                    <a href="https://orcid.org/0000-0002-2499-6039" title="ORCID"><i class="fab fa-orcid"></i></a>
+                </div>
+            </div>
+            <div class="footer-map">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3598.9954285168!2d84.85057031502507!3d25.53618998375064!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x398d5173896be2b5%3A0xc8b9b6749fc9d6c7!2sIndian%20Institute%20of%20Technology%20Patna!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+                    width="100%" height="300" style="border:0; border-radius: 12px;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; <span id="current-year">2025</span> SHRI Lab, IIT Patna. All Rights Reserved.</p>
         </div>
     </footer>
 
@@ -367,12 +454,16 @@
     <script src="scripts/animations.js"></script>
     <script src="scripts/gallery.js"></script>
     <script src="scripts/notice.js"></script>
-    <script src="scripts/publications.js"></script>
-    <script src="scripts/teaching.js"></script>
     <script src="scripts/projects.js"></script>
     <script src="scripts/students.js"></script>
-    <script src="scripts/awards.js"></script>
     <script src="scripts/collaborators.js"></script>
-    <script src="scripts/categories.js"></script>
+    <script src="scripts/research-areas.js"></script>
+    <script src="scripts/publications.js"></script>
+    <script src="scripts/teaching.js"></script>
+    <script src="scripts/awards.js"></script>
+    <script src="scripts/funded-projects.js"></script>
+    <script src="scripts/facilities.js"></script>
+    <script src="scripts/sponsors.js"></script>
 </body>
-</html> 
+
+</html>

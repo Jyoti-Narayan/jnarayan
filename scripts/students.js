@@ -10,7 +10,7 @@ function createStudentCard(student) {
     nameSection.className = 'student-info';
     nameSection.innerHTML = `
         <i class="fas fa-user"></i>
-        ${student.url ? 
+        ${student.url ?
             `<a href="${student.url}" class="student-name">${student.name}</a>` :
             `<span class="student-name">${student.name}</span>`
         }
@@ -30,6 +30,14 @@ function createStudentCard(student) {
         <span>${student.thesis_title || 'Project in progress'}</span>
     `;
 
+    // Add status badge for past students
+    if (student.status === 'past') {
+        const statusBadge = document.createElement('div');
+        statusBadge.className = 'student-status alumni';
+        statusBadge.innerHTML = `<span class="badge">Alumni</span>`;
+        card.appendChild(statusBadge);
+    }
+
     if (student.joint_supervisor) {
         const supervisorSection = document.createElement('div');
         supervisorSection.className = 'student-supervisor';
@@ -47,21 +55,27 @@ function createStudentCard(student) {
     return card;
 }
 
-// Function to load and display students
+// Function to load and display students sorted by year
 async function loadStudents() {
     try {
+        // Fetch ALL students regardless of status, sorted by year (descending - newest first)
         const { data: students, error } = await studentsClient
             .from('students')
             .select('*')
-            .eq('status', 'present')
-            .order('created_at', { ascending: false });
+            .order('year', { ascending: false, nullsFirst: false });
 
         if (error) throw error;
 
         // Clear existing content
-        document.getElementById('masters-grid').innerHTML = '';
-        document.getElementById('bachelors-grid').innerHTML = '';
-        document.getElementById('intern-grid').innerHTML = '';
+        const doctoralGrid = document.getElementById('doctoral-grid');
+        const mastersGrid = document.getElementById('masters-grid');
+        const bachelorsGrid = document.getElementById('bachelors-grid');
+        const internGrid = document.getElementById('intern-grid');
+
+        if (doctoralGrid) doctoralGrid.innerHTML = '';
+        if (mastersGrid) mastersGrid.innerHTML = '';
+        if (bachelorsGrid) bachelorsGrid.innerHTML = '';
+        if (internGrid) internGrid.innerHTML = '';
 
         // Group students by degree
         const groupedStudents = students.reduce((acc, student) => {
@@ -72,24 +86,31 @@ async function loadStudents() {
             return acc;
         }, {});
 
+        // Display Doctoral students
+        if (groupedStudents.Doctoral && doctoralGrid) {
+            groupedStudents.Doctoral.forEach(student => {
+                doctoralGrid.appendChild(createStudentCard(student));
+            });
+        }
+
         // Display Masters students
-        if (groupedStudents.Masters) {
+        if (groupedStudents.Masters && mastersGrid) {
             groupedStudents.Masters.forEach(student => {
-                document.getElementById('masters-grid').appendChild(createStudentCard(student));
+                mastersGrid.appendChild(createStudentCard(student));
             });
         }
 
         // Display Bachelors students
-        if (groupedStudents.Bachelors) {
+        if (groupedStudents.Bachelors && bachelorsGrid) {
             groupedStudents.Bachelors.forEach(student => {
-                document.getElementById('bachelors-grid').appendChild(createStudentCard(student));
+                bachelorsGrid.appendChild(createStudentCard(student));
             });
         }
 
         // Display Intern students
-        if (groupedStudents.Intern) {
+        if (groupedStudents.Intern && internGrid) {
             groupedStudents.Intern.forEach(student => {
-                document.getElementById('intern-grid').appendChild(createStudentCard(student));
+                internGrid.appendChild(createStudentCard(student));
             });
         }
 
@@ -99,4 +120,4 @@ async function loadStudents() {
 }
 
 // Load students when the page loads
-document.addEventListener('DOMContentLoaded', loadStudents); 
+document.addEventListener('DOMContentLoaded', loadStudents);
