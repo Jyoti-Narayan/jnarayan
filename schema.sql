@@ -178,6 +178,7 @@ create table public.students (
   joint_supervisor text null,
   created_at timestamp with time zone not null default timezone ('utc'::text, now()),
   url text null,
+  image_url text null,
   constraint students_pkey primary key (id),
   constraint students_degree_check check (
     (

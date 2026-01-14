@@ -128,6 +128,30 @@
     /* Keeping image centered looks better for vertical cards. If user insists on FULL left, I will change this. */
 }
 
+.student-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.student-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-card);
+    color: var(--primary-light);
+    font-size: 3rem;
+    opacity: 0.5;
+}
+
+.student-item:hover .student-placeholder {
+    color: var(--primary-accent);
+    opacity: 0.8;
+}
+
 /* Add separator line to student name section */
 .student-info {
     display: flex;
@@ -440,6 +464,55 @@ html {
 
 .navbar-burger.is-active span:nth-child(3) {
     transform: translateY(-5px) rotate(-45deg) !important;
+}
+
+/* Override Bulma's navbar breakpoint - Show mobile menu at 1200px */
+@media screen and (max-width: 1200px) {
+    .navbar-burger {
+        display: block !important;
+    }
+
+    .navbar-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--primary-accent);
+        box-shadow: var(--shadow-md);
+        padding: 0.5rem 0;
+        border-radius: 0 0 8px 8px;
+    }
+
+    .navbar-menu.is-active {
+        display: block !important;
+    }
+
+    .navbar-end {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .navbar-item {
+        padding: 0.75rem 1.5rem;
+        border-radius: 0;
+    }
+
+    .navbar-item:hover {
+        background-color: rgba(255, 255, 255, 0.15) !important;
+    }
+}
+
+/* Desktop navbar - Only show full menu above 1200px */
+@media screen and (min-width: 1201px) {
+    .navbar-burger {
+        display: none !important;
+    }
+
+    .navbar-menu {
+        display: flex !important;
+    }
 }
 
 /* Mobile navbar styles - REMOVED DUPLICATE - See consolidated version below */
