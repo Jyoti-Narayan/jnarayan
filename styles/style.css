@@ -3853,6 +3853,44 @@ a:hover {
     line-height: 1.6;
 }
 
+/* Clickable Research Area Link */
+.research-area-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.research-area-link:hover .research-area-card {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary-accent);
+}
+
+.research-area-explore {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border-light);
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--primary-accent);
+    transition: all 0.3s ease;
+}
+
+.research-area-explore i {
+    transition: transform 0.3s ease;
+}
+
+.research-area-link:hover .research-area-explore {
+    color: var(--primary-light);
+}
+
+.research-area-link:hover .research-area-explore i {
+    transform: translateX(4px);
+}
+
 @media screen and (max-width: 768px) {
     .research-areas-grid {
         grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));

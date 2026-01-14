@@ -20,6 +20,7 @@ DROP TABLE IF EXISTS public.journal_articles CASCADE;
 DROP TABLE IF EXISTS public.noticeboard CASCADE;
 DROP TABLE IF EXISTS public.patents CASCADE;
 DROP TABLE IF EXISTS public.projects CASCADE;
+DROP TABLE IF EXISTS public.research_areas CASCADE;
 DROP TABLE IF EXISTS public.students CASCADE;
 DROP TABLE IF EXISTS public.talks CASCADE;
 DROP TABLE IF EXISTS public.teaching CASCADE;
@@ -152,6 +153,21 @@ create table public.projects (
   constraint projects_pkey primary key (id)
 ) TABLESPACE pg_default;
 
+create table public.research_areas (
+  id uuid not null default gen_random_uuid (),
+  title text not null,
+  description text null,
+  image_url text null,
+  icon_class text null default 'fas fa-microscope'::text,
+  order_index integer not null default 0,
+  is_active boolean not null default true,
+  created_at timestamp with time zone not null default now(),
+  updated_at timestamp with time zone not null default now(),
+  constraint research_areas_pkey primary key (id)
+) TABLESPACE pg_default;
+
+create index IF not exists research_areas_order_idx on public.research_areas using btree (order_index) TABLESPACE pg_default;
+
 create table public.students (
   id uuid not null default extensions.uuid_generate_v4 (),
   name text not null,
@@ -279,6 +295,13 @@ CREATE POLICY "Enable read access for all users" ON public.projects FOR SELECT U
 CREATE POLICY "Enable insert for authenticated users only" ON public.projects FOR INSERT WITH CHECK (auth.role() = 'authenticated');
 CREATE POLICY "Enable update for authenticated users only" ON public.projects FOR UPDATE USING (auth.role() = 'authenticated');
 CREATE POLICY "Enable delete for authenticated users only" ON public.projects FOR DELETE USING (auth.role() = 'authenticated');
+
+-- Research areas table policies
+ALTER TABLE public.research_areas ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Enable read access for all users" ON public.research_areas FOR SELECT USING (true);
+CREATE POLICY "Enable insert for authenticated users only" ON public.research_areas FOR INSERT WITH CHECK (auth.role() = 'authenticated');
+CREATE POLICY "Enable update for authenticated users only" ON public.research_areas FOR UPDATE USING (auth.role() = 'authenticated');
+CREATE POLICY "Enable delete for authenticated users only" ON public.research_areas FOR DELETE USING (auth.role() = 'authenticated');
 
 -- Students table policies
 CREATE POLICY "Enable read access for all users" ON public.students FOR SELECT USING (true);

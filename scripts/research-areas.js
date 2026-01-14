@@ -42,18 +42,24 @@ function renderResearchAreas(researchAreas) {
     }
 
     const html = researchAreas.map(area => `
-        <div class="research-area-card">
-            <div class="research-area-image">
-                ${area.image_url
+        <a href="category.html?category=${encodeURIComponent(area.title)}" class="research-area-link">
+            <div class="research-area-card">
+                <div class="research-area-image">
+                    ${area.image_url
             ? `<img src="${area.image_url}" alt="${area.title}" loading="lazy">`
             : `<div class="research-area-icon"><i class="${area.icon_class || 'fas fa-microscope'}"></i></div>`
         }
+                </div>
+                <div class="research-area-content">
+                    <h4 class="research-area-title">${area.title}</h4>
+                    ${area.description ? `<p class="research-area-description">${area.description}</p>` : ''}
+                    <div class="research-area-explore">
+                        <span>Explore Publications</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </div>
             </div>
-            <div class="research-area-content">
-                <h4 class="research-area-title">${area.title}</h4>
-                ${area.description ? `<p class="research-area-description">${area.description}</p>` : ''}
-            </div>
-        </div>
+        </a>
     `).join('');
 
     container.innerHTML = html;
