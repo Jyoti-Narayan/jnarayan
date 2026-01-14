@@ -6,6 +6,17 @@ function createStudentCard(student) {
     const card = document.createElement('div');
     card.className = 'student-item';
 
+    const imageSection = document.createElement('div');
+    imageSection.className = 'student-image-wrapper';
+
+    if (student.image_url) {
+        imageSection.innerHTML = `<img src="${student.image_url}" alt="${student.name}" class="student-image">`;
+    } else {
+        imageSection.innerHTML = `<div class="student-placeholder"><i class="fas fa-user-graduate"></i></div>`;
+    }
+
+    card.appendChild(imageSection);
+
     const nameSection = document.createElement('div');
     nameSection.className = 'student-info';
     nameSection.innerHTML = `
