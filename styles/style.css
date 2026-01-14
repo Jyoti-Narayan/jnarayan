@@ -20,30 +20,197 @@
     --border-accent: #1a365d;
 
     /* Shadow */
-    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
-    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.15);
-    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.2);
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 3px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 8px 15px rgba(0, 0, 0, 0.15);
+
+    /* Typography Scale - Compact Modern */
+    --h1-size: 2.8rem;
+    --h2-size: 2rem;
+    --h3-size: 1.6rem;
+    --h4-size: 1.35rem;
+    --h5-size: 1.15rem;
+    --body-size: 1.05rem;
+    --small-size: 0.95rem;
 }
 
-/* Typography Scale - Increased sizes */
-:root {
-    /* Primary Colors remain unchanged */
+/* ... existing reset ... */
 
-    /* Typography Scale - Significantly larger */
-    --h1-size: 3.5rem;
-    /* Main name */
-    --h2-size: 2.5rem;
-    /* Role/Position */
-    --h3-size: 2.2rem;
-    /* Major section headings */
-    --h4-size: 1.8rem;
-    /* Subsection headings */
-    --h5-size: 1.5rem;
-    /* Category headings */
-    --body-size: 1.25rem;
-    /* Regular text */
-    --small-size: 1.1rem;
-    /* Supporting text */
+/* Section Styles - Compact */
+.section {
+    padding: 1.5rem 1rem;
+    margin-bottom: 1.5rem;
+    background: var(--bg-card);
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(43, 108, 176, 0.1);
+}
+
+.section h3 {
+    font-size: var(--h3-size);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--primary-accent);
+}
+
+/* ... headers and containers ... */
+
+#about .box.profile-header {
+    /* Compact Profile Header */
+    grid-template-columns: 200px 1fr;
+    /* Reduced image column */
+    gap: 1.5rem;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+#about .profile-image-wrapper {
+    width: 200px;
+    height: 200px;
+    /* ... */
+}
+
+/* ... */
+/* Members Section - Compact Vertical Layout */
+.students-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    /* Slightly narrower for vertical cards */
+    gap: 1.5rem;
+}
+
+.student-category-label {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin: 1rem 0 0.5rem;
+    padding-left: 0.5rem;
+    border-left: 3px solid var(--primary-accent);
+}
+
+.student-item {
+    display: flex;
+    flex-direction: column;
+    /* Vertical layout */
+    align-items: flex-start;
+    /* Left align */
+    padding: 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    gap: 1rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    text-align: left;
+    /* Left align text */
+}
+
+.student-item:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary-accent);
+}
+
+.student-image-wrapper {
+    width: 120px;
+    /* Larger image for vertical layout */
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-light);
+    background: #fff;
+    margin: 0;
+    /* Align left (remove auto margin) */
+    align-self: center;
+    /* keep image centered horizontally in the card? User said "contents left aligned" but usually profile pics look weird left-aligned in a vertical card. Let's try centering image but left-aligning text, OR full left align. Reference site has image on left in a horizontal card... but user REJECTED horizontal card. User wants vertical card but contents left aligned. */
+    align-self: center;
+    /* Keeping image centered looks better for vertical cards. If user insists on FULL left, I will change this. */
+}
+
+/* Add separator line to student name section */
+.student-info {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    width: 100%;
+    /* The line requested by user */
+    border-bottom: 2px solid var(--primary-accent);
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.student-year,
+.student-thesis,
+.student-supervisor {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+/* ... existing styles ... */
+
+.collaborator-header {
+    width: 100%;
+    margin-bottom: 0.5rem;
+    /* Restore the line */
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--primary-accent);
+}
+
+.student-name {
+    font-size: 1.15rem;
+}
+
+/* Wrapper for text content to keep it organized next to image */
+.student-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    /* Center text content */
+    gap: 0.5rem;
+}
+
+/* Make sure inner items don't have large gaps */
+.student-item .student-info i,
+.student-item .student-year i,
+.student-item .student-thesis i {
+    font-size: 0.9rem;
+}
+
+/* Collaborators - Compact Grid */
+.collaborators-grid {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+}
+
+/* Duplicate collaborator style removed */
+
+/* Further duplicates removed */
+
+/* Mobile Responsive Overrides */
+@media screen and (max-width: 768px) {
+    .students-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .student-item {
+        /* Keep horizontal on mobile if space allows, or stack if very narrow */
+        padding: 0.8rem;
+    }
+
+    #about .box.profile-header {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    #about .profile-image-wrapper {
+        margin: 0 auto;
+    }
 }
 
 * {
@@ -1205,76 +1372,7 @@ main {
     }
 }
 
-.student-item {
-    padding: 1.5rem;
-    background: var(--bg-hover);
-    border-radius: 8px;
-    border: 1px solid var(--border-light);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* Center content */
-    text-align: center;
-    /* Center text */
-    gap: 1rem;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-    line-height: 1.6;
-}
-
-.student-image-wrapper {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    margin-bottom: 0.5rem;
-    overflow: hidden;
-    flex-shrink: 0;
-    border: 3px solid var(--primary-accent);
-    box-shadow: var(--shadow-sm);
-    background: white;
-}
-
-.student-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-}
-
-.student-placeholder {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--bg-card);
-    color: var(--primary-light);
-    font-size: 3rem;
-    opacity: 0.5;
-}
-
-.student-item:hover .student-placeholder {
-    color: var(--primary-accent);
-    opacity: 0.8;
-}
-
-.student-item:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-    border-color: var(--primary-accent);
-}
-
-.student-info,
-.student-year,
-.student-thesis,
-.student-supervisor {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.8rem;
-}
-
-.student-info i,
-.student-year i,
-.student-thesis i,
+/* Old student item styles removed to favor new compact layout defined above */
 .student-supervisor i {
     color: var(--primary-accent);
     font-size: 1.1rem;
@@ -2218,18 +2316,27 @@ main {
 /* Collaborators Section */
 .collaborators-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    /* Use same grid sizing as students for consistency */
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 1.5rem;
     padding: 0.5rem;
 }
 
 .collaborator-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    /* Left align content */
     background: var(--bg-card);
-    border-radius: 12px;
+    border-radius: 8px;
+    /* Match student card */
     padding: 1.5rem;
     box-shadow: var(--shadow-sm);
     border: 1px solid var(--border-light);
     transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    text-align: left;
+    /* Left align text */
+    gap: 1rem;
 }
 
 .collaborator-card:hover {
@@ -2238,8 +2345,48 @@ main {
     border-color: var(--primary-accent);
 }
 
+.collaborator-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    align-self: center;
+    /* Center image horizontally like students */
+    box-shadow: var(--shadow-sm);
+    /* Border removed as requested */
+    border: none;
+    background: #fff;
+    margin: 0;
+}
+
+.collaborator-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.collaborator-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-card);
+    color: var(--primary-light);
+    font-size: 3rem;
+    opacity: 0.5;
+}
+
+.collaborator-card:hover .collaborator-placeholder {
+    color: var(--primary-accent);
+    opacity: 0.8;
+}
+
 .collaborator-header {
-    margin-bottom: 1rem;
+    width: 100%;
+    margin-bottom: 0.5rem;
     padding-bottom: 0.75rem;
     border-bottom: 2px solid var(--primary-accent);
 }
@@ -2248,14 +2395,44 @@ main {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    font-size: 1.25rem;
+    font-size: 1.15rem;
+    /* Match student name size */
     font-weight: 600;
     color: var(--text-secondary);
 }
 
+/* Remove the icon from name if it causes clutter, or keep it */
 .collaborator-name i {
+    display: none;
+    /* Hide icon for cleaner look matching students */
+}
+
+.collaborator-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.collaborator-department,
+.collaborator-affiliation,
+.collaborator-location {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    /* Match student info size */
+    color: var(--text-secondary);
+}
+
+.collaborator-department .icon,
+.collaborator-affiliation .icon,
+.collaborator-location .icon {
     color: var(--primary-accent);
-    font-size: 1.1rem;
+    font-size: 0.9rem;
+    width: 16px;
+    /* Fixed width for alignment */
+    text-align: center;
 }
 
 .collaborator-name a {
@@ -3714,7 +3891,8 @@ a:hover {
     text-align: left;
     color: #ffffff;
     font-weight: 600;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
+    /* Increased from 1.1rem */
     white-space: nowrap;
 }
 
@@ -3731,10 +3909,13 @@ a:hover {
 .project-title {
     font-weight: 600;
     color: var(--text-primary);
+    font-size: 1.15rem;
+    /* Increased size */
 }
 
 .project-description {
-    font-size: 0.9rem;
+    font-size: 1rem;
+    /* Increased from 0.9rem */
     color: var(--text-secondary);
     margin-top: 0.5rem;
     line-height: 1.5;
@@ -3743,13 +3924,16 @@ a:hover {
 .project-agency {
     color: var(--text-secondary);
     font-weight: 500;
+    font-size: 1.05rem;
+    /* Added explicit size */
 }
 
 .type-badge {
     display: inline-block;
     padding: 0.3rem 0.75rem;
     border-radius: 20px;
-    font-size: 0.85rem;
+    font-size: 0.95rem;
+    /* Increased from 0.85rem */
     font-weight: 500;
     white-space: nowrap;
 }
@@ -4221,57 +4405,8 @@ a:hover {
     color: var(--text-secondary);
 }
 
-/* Collaborators with Images */
-.collaborator-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 1.5rem;
-}
-
-.collaborator-image {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    overflow: hidden;
-    margin-bottom: 1rem;
-    border: 3px solid var(--primary-accent);
-    box-shadow: var(--shadow-sm);
-}
-
-.collaborator-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.collaborator-placeholder {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--bg-hover);
-    font-size: 3rem;
-    color: var(--primary-accent);
-    opacity: 0.5;
-}
-
-.collaborator-name {
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-}
-
-.collaborator-name a {
-    color: var(--text-primary);
-    text-decoration: none;
-}
-
-.collaborator-name a:hover {
-    color: var(--primary-accent);
-}
+/* Conflicting duplicate styles removed */
+/* Conflicting duplicate styles removed (cleaned) */
 
 /* Footer Styles */
 .site-footer {

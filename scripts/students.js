@@ -17,6 +17,9 @@ function createStudentCard(student) {
 
     card.appendChild(imageSection);
 
+    const contentWrapper = document.createElement('div');
+    contentWrapper.className = 'student-content-wrapper';
+
     const nameSection = document.createElement('div');
     nameSection.className = 'student-info';
     nameSection.innerHTML = `
@@ -46,7 +49,7 @@ function createStudentCard(student) {
         const statusBadge = document.createElement('div');
         statusBadge.className = 'student-status alumni';
         statusBadge.innerHTML = `<span class="badge">Alumni</span>`;
-        card.appendChild(statusBadge);
+        contentWrapper.appendChild(statusBadge);
     }
 
     if (student.joint_supervisor) {
@@ -56,12 +59,15 @@ function createStudentCard(student) {
             <i class="fas fa-user-tie"></i>
             <span>Joint Supervisor: ${student.joint_supervisor}</span>
         `;
-        card.appendChild(supervisorSection);
+        contentWrapper.appendChild(supervisorSection);
     }
 
-    card.appendChild(nameSection);
-    card.appendChild(yearSection);
-    card.appendChild(thesisSection);
+    contentWrapper.appendChild(nameSection);
+    contentWrapper.appendChild(yearSection);
+    contentWrapper.appendChild(thesisSection);
+
+    card.appendChild(imageSection);
+    card.appendChild(contentWrapper);
 
     return card;
 }
@@ -69,7 +75,6 @@ function createStudentCard(student) {
 // Function to load and display students sorted by year
 async function loadStudents() {
     try {
-        // Fetch ALL students regardless of status, sorted by year (descending - newest first)
         const { data: students, error } = await studentsClient
             .from('students')
             .select('*')
@@ -77,16 +82,48 @@ async function loadStudents() {
 
         if (error) throw error;
 
-        // Clear existing content
-        const doctoralGrid = document.getElementById('doctoral-grid');
-        const mastersGrid = document.getElementById('masters-grid');
-        const bachelorsGrid = document.getElementById('bachelors-grid');
-        const internGrid = document.getElementById('intern-grid');
+        // Helper to render a category
+        const renderCategory = (containerId, categoryStudents) => {
+            const container = document.getElementById(containerId);
+            if (!container) return;
 
-        if (doctoralGrid) doctoralGrid.innerHTML = '';
-        if (mastersGrid) mastersGrid.innerHTML = '';
-        if (bachelorsGrid) bachelorsGrid.innerHTML = '';
-        if (internGrid) internGrid.innerHTML = '';
+            container.innerHTML = '';
+            // Remove the main grid class because we will nest grids inside
+            container.classList.remove('students-grid');
+            container.style.display = 'flex';
+            container.style.flexDirection = 'column';
+            container.style.gap = '2rem';
+
+            const present = categoryStudents.filter(s => s.status !== 'past');
+            const past = categoryStudents.filter(s => s.status === 'past');
+
+            if (present.length > 0) {
+                // If we have mixed past/present, label this group. Otherwise just show them.
+                if (past.length > 0) {
+                    const title = document.createElement('h5');
+                    title.className = 'student-category-label';
+                    title.innerText = 'Current Members';
+                    container.appendChild(title);
+                }
+
+                const grid = document.createElement('div');
+                grid.className = 'students-grid';
+                present.forEach(student => grid.appendChild(createStudentCard(student)));
+                container.appendChild(grid);
+            }
+
+            if (past.length > 0) {
+                const title = document.createElement('h5');
+                title.className = 'student-category-label';
+                title.innerText = 'Alumni';
+                container.appendChild(title);
+
+                const grid = document.createElement('div');
+                grid.className = 'students-grid';
+                past.forEach(student => grid.appendChild(createStudentCard(student)));
+                container.appendChild(grid);
+            }
+        };
 
         // Group students by degree
         const groupedStudents = students.reduce((acc, student) => {
@@ -97,33 +134,11 @@ async function loadStudents() {
             return acc;
         }, {});
 
-        // Display Doctoral students
-        if (groupedStudents.Doctoral && doctoralGrid) {
-            groupedStudents.Doctoral.forEach(student => {
-                doctoralGrid.appendChild(createStudentCard(student));
-            });
-        }
-
-        // Display Masters students
-        if (groupedStudents.Masters && mastersGrid) {
-            groupedStudents.Masters.forEach(student => {
-                mastersGrid.appendChild(createStudentCard(student));
-            });
-        }
-
-        // Display Bachelors students
-        if (groupedStudents.Bachelors && bachelorsGrid) {
-            groupedStudents.Bachelors.forEach(student => {
-                bachelorsGrid.appendChild(createStudentCard(student));
-            });
-        }
-
-        // Display Intern students
-        if (groupedStudents.Intern && internGrid) {
-            groupedStudents.Intern.forEach(student => {
-                internGrid.appendChild(createStudentCard(student));
-            });
-        }
+        // Render each category
+        if (groupedStudents.Doctoral) renderCategory('doctoral-grid', groupedStudents.Doctoral);
+        if (groupedStudents.Masters) renderCategory('masters-grid', groupedStudents.Masters);
+        if (groupedStudents.Bachelors) renderCategory('bachelors-grid', groupedStudents.Bachelors);
+        if (groupedStudents.Intern) renderCategory('intern-grid', groupedStudents.Intern);
 
     } catch (error) {
         console.error('Error loading students:', error);
