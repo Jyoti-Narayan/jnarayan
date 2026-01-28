@@ -78,8 +78,8 @@
                     <img src="images/iit_patna_logo.png" alt="IIT Patna Logo" class="institution-logo">
                 </div>
                 <div class="banner-text">
-                    <h1 class="lab-name">SHRI Lab</h1>
-                    <p class="lab-full-name">Smart Healthcare & Rehabilitation Innovations Lab</p>
+                    <h1 class="lab-name">SHRI Laboratory</h1>
+                    <p class="lab-full-name">Smart Healthcare & Robotics Interface Laboratory</p>
                 </div>
                 <div class="banner-logo-right">
                     <img src="images/shri_lab_logo.png" alt="SHRI Lab Logo" class="lab-logo">
@@ -150,6 +150,13 @@
                     <!-- Research areas will be loaded dynamically from Supabase -->
                 </div>
             </div>
+                <p class="publications-note">
+                    For a comprehensive and up-to-date list, please refer to my
+                    <a href="https://scholar.google.co.in/citations?user=sgnY6r4AAAAJ&amp;hl=en"> Google Scholar profile</a>
+                    or
+                    <a href="https://drive.google.com/file/d/1LFg1AXHS1-XeYYKwCjbFo_RFyZ0MLlPl/view?usp=sharing">Curriculum
+                        Vitae</a>.
+                </p>
         </section>
 
         <!-- Funded Projects Section -->
@@ -284,10 +291,10 @@
             </div>
         </section>
 
-        <!-- Publications Section -->
+        <!-- Publications Stats Section -->
         <section id="publications" class="section">
             <h3>Publications</h3>
-            <div id="publications-list" class="section-content">
+            <div class="section-content">
                 <p class="publications-note">
                     For a comprehensive and up-to-date list, please refer to my
                     <a href="https://scholar.google.co.in/citations?user=sgnY6r4AAAAJ&hl=en"> Google Scholar profile</a>
@@ -295,30 +302,37 @@
                     <a href="https://drive.google.com/file/d/1LFg1AXHS1-XeYYKwCjbFo_RFyZ0MLlPl/view?usp=sharing">Curriculum
                         Vitae</a>.
                 </p>
-
-                <div class="books">
-                    <h4>Books</h4>
-                    <div id="books-list"></div>
+                <div class="publications-stats-grid">
+                    <div class="stat-card">
+                        <i class="fas fa-book"></i>
+                        <span class="stat-number" data-target="0" id="stat-books">0</span>
+                        <span class="stat-label">Books</span>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-file-alt"></i>
+                        <span class="stat-number" data-target="0" id="stat-journals">0</span>
+                        <span class="stat-label">Journal Articles</span>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-users"></i>
+                        <span class="stat-number" data-target="0" id="stat-conferences">0</span>
+                        <span class="stat-label">Conference Papers</span>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-bookmark"></i>
+                        <span class="stat-number" data-target="0" id="stat-chapters">0</span>
+                        <span class="stat-label">Book Chapters</span>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-lightbulb"></i>
+                        <span class="stat-number" data-target="0" id="stat-patents">0</span>
+                        <span class="stat-label">Patents</span>
+                    </div>
                 </div>
-
-                <div class="journal-articles">
-                    <h4>Journal Articles</h4>
-                    <div id="journal-articles-list"></div>
-                </div>
-
-                <div class="conference-articles">
-                    <h4>Conference Articles</h4>
-                    <div id="conference-articles-list"></div>
-                </div>
-
-                <div class="book-chapters">
-                    <h4>Book Chapters</h4>
-                    <div id="book-chapters-list"></div>
-                </div>
-
-                <div class="patents">
-                    <h4>Patents</h4>
-                    <div id="patents-list"></div>
+                <div class="publications-cta">
+                    <a href="publications.html" class="btn-view-publications">
+                        <i class="fas fa-arrow-right"></i> View All Publications
+                    </a>
                 </div>
             </div>
         </section>
@@ -445,6 +459,15 @@
                             class="fab fa-linkedin"></i></a>
                     <a href="https://orcid.org/0000-0002-2499-6039" title="ORCID"><i class="fab fa-orcid"></i></a>
                 </div>
+                <div class="visitor-stats-box">
+                    <h4><i class="fas fa-chart-line"></i> Site Statistics</h4>
+                    <div id="visitor-stats" class="visitor-stats-grid">
+                        <div class="visitor-stat loading">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <span class="stat-name">Loading...</span>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="footer-map">
                 <iframe
@@ -468,12 +491,13 @@
     <script src="scripts/students.js"></script>
     <script src="scripts/collaborators.js"></script>
     <script src="scripts/research-areas.js"></script>
-    <script src="scripts/publications.js"></script>
+    <script src="scripts/publications-stats.js"></script>
     <script src="scripts/teaching.js"></script>
     <script src="scripts/awards.js"></script>
     <script src="scripts/funded-projects.js"></script>
     <script src="scripts/facilities.js"></script>
     <script src="scripts/sponsors.js"></script>
+    <script src="scripts/site-analytics.js"></script>
 </body>
 
 </html>

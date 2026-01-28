@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publications | SHRI Lab | IIT Patna</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles/style.css?v=11">
+    <!-- Load Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Load configuration -->
+    <script src="scripts/config.js?v=11"></script>
+    <meta name="description"
+        content="Publications - SHRI Lab at IIT Patna. Research publications including books, journal articles, conference papers, book chapters, and patents.">
+    <meta name="keywords"
+        content="SHRI Lab, IIT Patna, Publications, Research Papers, Journal Articles, Conference Papers, Patents, Dr. Jyotindra Narayan">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://jnarayan.in/publications.html">
+    <meta property="og:title" content="Publications | SHRI Lab | IIT Patna">
+    <meta property="og:description"
+        content="Research publications from SHRI Lab - Books, Journal Articles, Conference Papers, Book Chapters, and Patents.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://jnarayan.in/publications.html">
+    <meta property="og:image" content="https://jnarayan.in/images/shri-lab-logo.png">
+    <meta property="og:site_name" content="SHRI Lab">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Publications | SHRI Lab | IIT Patna">
+    <meta name="twitter:description" content="Research publications from SHRI Lab at IIT Patna">
+    <meta name="twitter:image" content="https://jnarayan.in/images/shri-lab-logo.png">
+    <link rel="icon" type="image/png" href="images/fevicon.png">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="container">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="index.html">
+                    <span class="name">SHRI Lab</span>
+                </a>
+
+                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+
+            <div id="navMenu" class="navbar-menu">
+                <div class="navbar-end">
+                    <a href="index.html#about" class="navbar-item">About</a>
+                    <a href="index.html#research" class="navbar-item">Research</a>
+                    <a href="index.html#projects" class="navbar-item">Projects</a>
+                    <a href="index.html#facilities" class="navbar-item">Facilities</a>
+                    <a href="index.html#sponsors" class="navbar-item">Sponsors</a>
+                    <a href="index.html#pi" class="navbar-item">PI</a>
+                    <a href="index.html#experience" class="navbar-item">Experience</a>
+                    <a href="publications.html" class="navbar-item is-active">Publications</a>
+                    <a href="index.html#awards" class="navbar-item">Awards</a>
+                    <a href="index.html#members" class="navbar-item">Members</a>
+                    <a href="index.html#collaborators" class="navbar-item">Collaborators</a>
+                    <a href="index.html#gallery" class="navbar-item">Gallery</a>
+                    <a href="index.html#contact" class="navbar-item">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Lab Banner Section -->
+        <section id="lab-banner" class="hero-banner">
+            <div class="banner-content">
+                <div class="banner-logo-left">
+                    <img src="images/iit_patna_logo.png" alt="IIT Patna Logo" class="institution-logo">
+                </div>
+                <div class="banner-text">
+                    <h1 class="lab-name">SHRI Laboratory</h1>
+                    <p class="lab-full-name">Smart Healthcare & Robotics Interface Laboratory</p>
+                </div>
+                <div class="banner-logo-right">
+                    <img src="images/shri_lab_logo.png" alt="SHRI Lab Logo" class="lab-logo">
+                </div>
+            </div>
+        </section>
+
+        <!-- Publications Section -->
+        <section id="publications" class="section">
+            <h3>Publications</h3>
+            <div id="publications-list" class="section-content">
+                <p class="publications-note">
+                    For a comprehensive and up-to-date list, please refer to my
+                    <a href="https://scholar.google.co.in/citations?user=sgnY6r4AAAAJ&hl=en"> Google Scholar profile</a>
+                    or
+                    <a href="https://drive.google.com/file/d/1LFg1AXHS1-XeYYKwCjbFo_RFyZ0MLlPl/view?usp=sharing">Curriculum
+                        Vitae</a>.
+                </p>
+
+                <div class="books">
+                    <h4>Books</h4>
+                    <div id="books-list"></div>
+                </div>
+
+                <div class="journal-articles">
+                    <h4>Journal Articles</h4>
+                    <div id="journal-articles-list"></div>
+                </div>
+
+                <div class="conference-articles">
+                    <h4>Conference Articles</h4>
+                    <div id="conference-articles-list"></div>
+                </div>
+
+                <div class="book-chapters">
+                    <h4>Book Chapters</h4>
+                    <div id="book-chapters-list"></div>
+                </div>
+
+                <div class="patents">
+                    <h4>Patents</h4>
+                    <div id="patents-list"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer with Address and Google Maps -->
+    <footer id="contact" class="site-footer">
+        <div class="footer-content">
+            <div class="footer-info">
+                <h3><i class="fas fa-map-marker-alt"></i> Contact Us</h3>
+                <div class="footer-lab-name">SHRI Lab</div>
+                <div class="contact-item">
+                    <i class="fas fa-building"></i>
+                    <p>R514 Block III, Academic Complex<br>IIT Patna, Bihta, Bihar - 801106, India</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <p><a href="mailto:jnarayan@iitp.ac.in">jnarayan@iitp.ac.in</a></p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <p><a href="tel:+916115233946">+91-6115233946</a></p>
+                </div>
+                <div class="footer-social">
+                    <a href="https://scholar.google.co.in/citations?user=sgnY6r4AAAAJ&hl=en" title="Google Scholar"><i
+                            class="fas fa-graduation-cap"></i></a>
+                    <a href="https://www.linkedin.com/in/jyotindra-narayan-a54214101/" title="LinkedIn"><i
+                            class="fab fa-linkedin"></i></a>
+                    <a href="https://orcid.org/0000-0002-2499-6039" title="ORCID"><i class="fab fa-orcid"></i></a>
+                </div>
+            </div>
+            <div class="footer-map">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3598.9954285168!2d84.85057031502507!3d25.53618998375064!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x398d5173896be2b5%3A0xc8b9b6749fc9d6c7!2sIndian%20Institute%20of%20Technology%20Patna!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+                    width="100%" height="300" style="border:0; border-radius: 12px;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; <span id="current-year">2025</span> SHRI Lab, IIT Patna. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Load Scripts -->
+    <script src="scripts/script.js"></script>
+    <script src="scripts/animations.js"></script>
+    <script src="scripts/publications.js"></script>
+</body>
+
+</html>

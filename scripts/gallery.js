@@ -66,6 +66,13 @@ document.addEventListener('DOMContentLoaded', async function() {
                 img.style.opacity = '1';
             };
             
+            // Handle broken/invalid images
+            img.onerror = () => {
+                console.warn('Failed to load gallery image:', item.image_url);
+                // Hide the entire slide if image fails to load
+                slide.style.display = 'none';
+            };
+            
             // Add caption
             const caption = document.createElement('div');
             caption.className = 'carousel-caption';

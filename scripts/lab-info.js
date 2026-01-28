@@ -32,8 +32,8 @@ function renderLabBanner(labInfo) {
         return;
     }
 
-    const labName = labInfo?.lab_name || 'SHRI Lab';
-    const labFullName = labInfo?.lab_full_name || 'Smart Healthcare & Rehabilitation Innovations Lab';
+    const labName = labInfo?.lab_name || 'Smart Healthcare & Robotics Interface Laboratory (SHRI Laboratory)';
+    const labFullName = labInfo?.lab_full_name || 'Smart Healthcare & Robotics Interface Laboratory (SHRI Laboratory)';
     const institutionLogo = labInfo?.institution_logo_url || 'images/iitp-logo.png';
     const labLogo = labInfo?.lab_logo_url || 'images/shri-lab-logo.png';
 
