@@ -110,6 +110,22 @@ function applySiteAssets(assets) {
         console.log('OG image loaded from database');
     }
 
+    // Apply PI Profile Image
+    if (assetMap['pi_profile_image']) {
+        const profileUrl = window.convertGoogleDriveUrl 
+            ? window.convertGoogleDriveUrl(assetMap['pi_profile_image'].asset_url) 
+            : assetMap['pi_profile_image'].asset_url;
+        
+        const profileImages = document.querySelectorAll('.pi-profile-image, #profile-image');
+        profileImages.forEach(img => {
+            img.src = profileUrl;
+            if (assetMap['pi_profile_image'].alt_text) {
+                img.alt = assetMap['pi_profile_image'].alt_text;
+            }
+        });
+        console.log('PI profile image loaded from database');
+    }
+
     console.log('All site assets applied successfully from database');
 }
 
