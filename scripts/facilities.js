@@ -45,7 +45,7 @@ function renderFacilities(facilities) {
         <div class="facility-card">
             <div class="facility-image">
                 ${facility.image_url
-            ? `<img src="${facility.image_url}" alt="${facility.name}" loading="lazy">`
+            ? `<img src="${window.convertGoogleDriveUrl ? window.convertGoogleDriveUrl(facility.image_url) : facility.image_url}" alt="${facility.name}" loading="lazy">`
             : `<div class="facility-placeholder"><i class="fas fa-tools"></i></div>`
         }
             </div>

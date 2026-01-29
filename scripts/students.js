@@ -10,7 +10,8 @@ function createStudentCard(student) {
     imageSection.className = 'student-image-wrapper';
 
     if (student.image_url) {
-        imageSection.innerHTML = `<img src="${student.image_url}" alt="${student.name}" class="student-image">`;
+        const imageUrl = window.convertGoogleDriveUrl ? window.convertGoogleDriveUrl(student.image_url) : student.image_url;
+        imageSection.innerHTML = `<img src="${imageUrl}" alt="${student.name}" class="student-image">`;
     } else {
         imageSection.innerHTML = `<div class="student-placeholder"><i class="fas fa-user-graduate"></i></div>`;
     }

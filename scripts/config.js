@@ -75,9 +75,28 @@ async function initializeSupabaseClient() {
     return window.supabaseClient;
 }
 
+// Utility function to convert Google Drive URLs to direct image URLs
+function convertGoogleDriveUrl(url) {
+    if (!url) return url;
+    
+    // Check if it's a Google Drive URL
+    const drivePattern = /drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/;
+    const match = url.match(drivePattern);
+    
+    if (match) {
+        const fileId = match[1];
+        // Convert to direct thumbnail URL with high quality
+        return `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`;
+    }
+    
+    // Return original URL if not a Google Drive link
+    return url;
+}
+
 // Make functions available globally
 window.initSupabase = initSupabase;
 window.initializeSupabaseClient = initializeSupabaseClient;
+window.convertGoogleDriveUrl = convertGoogleDriveUrl;
 
 // Initialize immediately
 initializeSupabaseClient(); 

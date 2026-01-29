@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             // Create and setup image
             const img = document.createElement('img');
             img.className = 'carousel-image';
-            img.src = item.image_url;
+            img.src = window.convertGoogleDriveUrl ? window.convertGoogleDriveUrl(item.image_url) : item.image_url;
             img.alt = `Gallery image ${index + 1}`;
             
             // Add loading state

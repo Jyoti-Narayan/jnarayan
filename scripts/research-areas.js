@@ -46,7 +46,7 @@ function renderResearchAreas(researchAreas) {
             <div class="research-area-card">
                 <div class="research-area-image">
                     ${area.image_url
-            ? `<img src="${area.image_url}" alt="${area.title}" loading="lazy">`
+            ? `<img src="${window.convertGoogleDriveUrl ? window.convertGoogleDriveUrl(area.image_url) : area.image_url}" alt="${area.title}" loading="lazy">`
             : `<div class="research-area-icon"><i class="${area.icon_class || 'fas fa-microscope'}"></i></div>`
         }
                 </div>

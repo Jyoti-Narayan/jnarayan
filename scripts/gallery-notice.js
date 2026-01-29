@@ -30,7 +30,7 @@ function renderGallery() {
     // Create slides
     container.innerHTML = galleryImages.map((item, index) => `
         <div class="carousel-slide" data-index="${index}">
-            <img src="${item.image_url}" alt="Gallery image ${index + 1}">
+            <img src="${window.convertGoogleDriveUrl ? window.convertGoogleDriveUrl(item.image_url) : item.image_url}" alt="Gallery image ${index + 1}">
             ${item.caption ? `<div class="carousel-caption">${item.caption}</div>` : ''}
         </div>
     `).join('');

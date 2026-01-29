@@ -48,7 +48,7 @@ function renderCollaborators(collaborators) {
                     <div class="collaborator-card">
                         <div class="collaborator-image">
                             ${collaborator.image_url
-                ? `<img src="${collaborator.image_url}" alt="${collaborator.name}" loading="lazy">`
+                ? `<img src="${window.convertGoogleDriveUrl ? window.convertGoogleDriveUrl(collaborator.image_url) : collaborator.image_url}" alt="${collaborator.name}" loading="lazy">`
                 : `<div class="collaborator-placeholder"><i class="fas fa-user-circle"></i></div>`
             }
                         </div>
