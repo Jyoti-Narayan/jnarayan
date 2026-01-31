@@ -116,15 +116,24 @@ document.addEventListener('DOMContentLoaded', async () => {
         };
     }
 
-    // Log page visit with full data
+    // Log page visit with full data (only after 5 seconds of active engagement)
     async function logPageVisit() {
         try {
             const visitorData = collectVisitorData();
+            
+            // Check if this session was already logged (to prevent duplicate counts on same page)
+            const sessionKey = 'shri_session_logged_' + visitorData.page;
+            if (sessionStorage.getItem(sessionKey)) {
+                return; // Already logged this page in this session
+            }
 
             // Insert page view with all visitor data
             await window.supabaseClient
                 .from('page_views')
                 .insert(visitorData);
+
+            // Mark this page as logged for this session
+            sessionStorage.setItem(sessionKey, 'true');
 
             // Mark visitor as logged if first time
             if (visitorData.is_new_visitor) {
@@ -133,6 +142,49 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         } catch (error) {
             console.error('Error logging page visit:', error);
+        }
+    }
+
+    // Delayed visit logging - only count if user stays for 5+ seconds
+    function scheduleVisitLogging() {
+        let visitLogged = false;
+        let timeoutId = null;
+        
+        // Start the 5-second timer
+        function startTimer() {
+            if (visitLogged) return;
+            
+            timeoutId = setTimeout(async () => {
+                if (!document.hidden && !visitLogged) {
+                    visitLogged = true;
+                    await logPageVisit();
+                }
+            }, 5000); // 5 seconds
+        }
+        
+        // Stop the timer if user leaves
+        function stopTimer() {
+            if (timeoutId) {
+                clearTimeout(timeoutId);
+                timeoutId = null;
+            }
+        }
+        
+        // Handle visibility changes (tab switching)
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                stopTimer();
+            } else if (!visitLogged) {
+                startTimer();
+            }
+        });
+        
+        // Handle page unload
+        window.addEventListener('beforeunload', stopTimer);
+        
+        // Start timer immediately if page is visible
+        if (!document.hidden) {
+            startTimer();
         }
     }
 
@@ -199,6 +251,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // Initialize
-    await logPageVisit();
+    scheduleVisitLogging(); // Start 5-second timer for visit logging
     await displaySiteStats();
 });
