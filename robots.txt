@@ -1,0 +1,15 @@
+# robots.txt for SHRI Lab - IIT Patna
+# https://jyotindranarayan.in
+
+# Allow all search engines to crawl the entire site
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://jyotindranarayan.in/sitemap.xml
+
+# Disallow unnecessary directories
+Disallow: /schemas/
+
+# Crawl-delay (optional, helps prevent server overload)
+Crawl-delay: 1

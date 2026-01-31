@@ -12,22 +12,68 @@
     <!-- Load configuration -->
     <script src="scripts/config.js"></script>
     <meta name="description" content="Research categories and publications by Dr. Jyotindra Narayan, Assistant Professor at IIT Patna. Explore work in Robotics, Control Systems, and more.">
-    <meta name="keywords" content="Research, Publications, Robotics, Control Systems, Jyotindra Narayan, IIT Patna, Mechanical Engineering, India, Research Categories">
+    <meta name="keywords" content="Research, Publications, IIT Patna, Mechanical Department, Mechanical Engineering, Robotics, Exoskeleton, Physics Informed Neural Network, PINN, Rehabilitation Robotics, Bioengineering, Cyber-Physical Systems, Control Systems, Data-Driven Systems, Biomechanics, Gait Analysis, General Robotics, Human-Robot Interaction, Medical Robotics, Predictive Modeling in Healthcare, Robust Control, Jyotindra Narayan, Research Categories, Smart Healthcare, India">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://jnarayan.in/category.html">
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <link rel="canonical" href="https://jyotindranarayan.in/category.html">
     <meta property="og:title" content="Research Categories - Dr. Jyotindra Narayan">
     <meta property="og:description" content="Explore research categories and publications by Dr. Jyotindra Narayan, IIT Patna.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://jnarayan.in/category.html">
-    <meta property="og:image" content="" id="og-image-meta">
-    <meta property="og:site_name" content="Dr. Jyotindra Narayan">
+    <meta property="og:url" content="https://jyotindranarayan.in/category.html">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:image" content="https://jyotindranarayan.in/images/shri_lab_logo.png" id="og-image-meta">
+    <meta property="og:image:alt" content="SHRI Lab Logo">
+    <meta property="og:site_name" content="SHRI Lab">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Research Categories - Dr. Jyotindra Narayan">
     <meta name="twitter:description" content="Explore research categories and publications by Dr. Jyotindra Narayan, IIT Patna.">
-    <meta name="twitter:image" content="">
-    <link rel="icon" type="image/png" href="" id="favicon-link">
+    <meta name="twitter:image" content="https://jyotindranarayan.in/images/shri_lab_logo.png">
+    <link rel="icon" type="image/png" href="images/fevicon.png" id="favicon-link">
+    <link rel="apple-touch-icon" href="images/shri_lab_logo.png">
+    
+    <!-- Structured Data - BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "Research Categories - Dr. Jyotindra Narayan",
+        "description": "Research categories and publications by Dr. Jyotindra Narayan, Assistant Professor at IIT Patna.",
+        "url": "https://jyotindranarayan.in/category.html",
+        "isPartOf": {
+            "@type": "WebSite",
+            "name": "SHRI Lab",
+            "url": "https://jyotindranarayan.in/"
+        },
+        "breadcrumb": {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "Home",
+                    "item": "https://jyotindranarayan.in/"
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "name": "Research Categories",
+                    "item": "https://jyotindranarayan.in/category.html"
+                }
+            ]
+        }
+    }
+    </script>
 </head>
-<body>
+<body class="loading">
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader-content">
+            <div class="spinner"></div>
+            <p class="loader-text">Loading Research...</p>
+        </div>
+    </div>
+
     <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
         <div class="container">
             <div class="navbar-brand">
@@ -103,5 +149,24 @@
     <script src="scripts/categories.js"></script>
     <script src="scripts/category.js"></script>
     <script src="scripts/site-assets.js"></script>
+    
+    <!-- Preloader Script -->
+    <script>
+        (function() {
+            function hidePreloader() {
+                const preloader = document.getElementById('preloader');
+                const body = document.body;
+                if (preloader) {
+                    preloader.classList.add('fade-out');
+                    setTimeout(function() {
+                        preloader.style.display = 'none';
+                        body.classList.remove('loading');
+                    }, 500);
+                }
+            }
+            window.addEventListener('load', hidePreloader);
+            setTimeout(hidePreloader, 5000);
+        })();
+    </script>
 </body>
 </html> 

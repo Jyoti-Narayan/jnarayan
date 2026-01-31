@@ -17,24 +17,85 @@
     <meta name="description"
         content="SHRI Lab - Smart Healthcare & Robotics Interfacing Lab at IIT Patna. Research in Rehabilitation Robotics, Human-Robot Interaction, Control Systems, and more.">
     <meta name="keywords"
-        content="SHRI Lab, IIT Patna, Robotics, Rehabilitation Robotics, Human-Robot Interaction, Control Systems, Dr. Jyotindra Narayan, Research Lab, Mechanical Engineering">
+        content="SHRI Lab, IIT Patna, Mechanical Department, Mechanical Engineering, Robotics, Exoskeleton, Physics Informed Neural Network, PINN, Rehabilitation Robotics, Bioengineering, Cyber-Physical Systems, Control Systems, Data-Driven Systems, Biomechanics, Gait Analysis, General Robotics, Human-Robot Interaction, Medical Robotics, Predictive Modeling in Healthcare, Robust Control, Dr. Jyotindra Narayan, Research Lab, Smart Healthcare, Robotic Manipulators, Machine Learning, Motion Planning, Healthcare Robotics, Assistive Devices, Surgery Robotics">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://jnarayan.in/">
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <link rel="canonical" href="https://jyotindranarayan.in/">
     <meta property="og:title" content="SHRI Lab | IIT Patna">
     <meta property="og:description"
         content="Smart Healthcare & Robotics Interfacing Lab - Research in Rehabilitation Robotics, Human-Robot Interaction, and Control Systems.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://jnarayan.in/">
-    <meta property="og:image" content="" id="og-image-meta">
+    <meta property="og:url" content="https://jyotindranarayan.in/">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:image" content="https://jyotindranarayan.in/images/shri_lab_logo.png" id="og-image-meta">
+    <meta property="og:image:alt" content="SHRI Lab Logo">
     <meta property="og:site_name" content="SHRI Lab">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="SHRI Lab | IIT Patna">
     <meta name="twitter:description" content="Smart Healthcare & Robotics Interfacing Lab at IIT Patna">
-    <meta name="twitter:image" content="">
-    <link rel="icon" type="image/png" href="" id="favicon-link">
+    <meta name="twitter:image" content="https://jyotindranarayan.in/images/shri_lab_logo.png">
+    <link rel="icon" type="image/png" href="images/fevicon.png" id="favicon-link">
+    <link rel="apple-touch-icon" href="images/shri_lab_logo.png">
+    
+    <!-- Structured Data - Organization -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ResearchOrganization",
+        "name": "SHRI Lab - Smart Healthcare & Robotics Interfacing Laboratory",
+        "alternateName": "SHRI Lab",
+        "url": "https://jyotindranarayan.in/",
+        "logo": "https://jyotindranarayan.in/images/shri_lab_logo.png",
+        "description": "Smart Healthcare & Robotics Interfacing Lab at IIT Patna. Research in Rehabilitation Robotics, Human-Robot Interaction, Control Systems, and more.",
+        "parentOrganization": {
+            "@type": "EducationalOrganization",
+            "name": "Indian Institute of Technology Patna",
+            "alternateName": "IIT Patna",
+            "url": "https://www.iitp.ac.in/"
+        },
+        "department": {
+            "@type": "Organization",
+            "name": "Department of Mechanical Engineering",
+            "url": "https://me.iitp.ac.in/"
+        },
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Patna",
+            "addressRegion": "Bihar",
+            "addressCountry": "India"
+        },
+        "sameAs": [],
+        "foundingDate": "2023",
+        "keywords": ["Rehabilitation Robotics", "Bioengineering", "Cyber-Physical Systems", "Control Systems", "Data-Driven Systems", "Biomechanics", "Gait Analysis", "General Robotics", "Human-Robot Interaction", "Medical Robotics", "Predictive Modeling in Healthcare", "Robust Control", "Exoskeleton", "Physics Informed Neural Network", "PINN", "Smart Healthcare", "Robotics Research", "IIT Patna", "Mechanical Engineering"]
+    }
+    </script>
+    
+    <!-- Structured Data - WebSite -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "SHRI Lab | IIT Patna",
+        "url": "https://jyotindranarayan.in/",
+        "description": "Smart Healthcare & Robotics Interfacing Lab at IIT Patna",
+        "publisher": {
+            "@type": "ResearchOrganization",
+            "name": "SHRI Lab"
+        }
+    }
+    </script>
 </head>
 
-<body>
+<body class="loading">
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader-content">
+            <div class="spinner"></div>
+            <p class="loader-text">Loading SHRI Lab...</p>
+        </div>
+    </div>
+
     <!-- Navigation -->
     <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
         <div class="container">
@@ -499,6 +560,59 @@
     <script src="scripts/sponsors.js"></script>
     <script src="scripts/site-analytics.js"></script>
     <script src="scripts/site-assets.js"></script>
+    
+    <!-- Preloader Script -->
+    <script>
+        (function() {
+            // Critical images to wait for
+            const criticalImages = [
+                document.getElementById('institution-logo'),
+                document.getElementById('lab-logo'),
+                document.querySelector('.pi-image img')
+            ].filter(img => img !== null);
+            
+            let loadedCount = 0;
+            const totalImages = criticalImages.length;
+            
+            function checkAllLoaded() {
+                loadedCount++;
+                if (loadedCount >= totalImages) {
+                    hidePreloader();
+                }
+            }
+            
+            function hidePreloader() {
+                const preloader = document.getElementById('preloader');
+                const body = document.body;
+                
+                if (preloader) {
+                    preloader.classList.add('fade-out');
+                    setTimeout(function() {
+                        preloader.style.display = 'none';
+                        body.classList.remove('loading');
+                    }, 500);
+                }
+            }
+            
+            // Wait for critical images
+            if (totalImages === 0) {
+                // No critical images found, hide after DOM ready
+                window.addEventListener('load', hidePreloader);
+            } else {
+                criticalImages.forEach(function(img) {
+                    if (img.complete) {
+                        checkAllLoaded();
+                    } else {
+                        img.addEventListener('load', checkAllLoaded);
+                        img.addEventListener('error', checkAllLoaded); // Handle failed loads
+                    }
+                });
+            }
+            
+            // Fallback: Hide preloader after 5 seconds max
+            setTimeout(hidePreloader, 5000);
+        })();
+    </script>
 </body>
 
 </html>

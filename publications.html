@@ -17,24 +17,74 @@
     <meta name="description"
         content="Publications - SHRI Lab at IIT Patna. Research publications including books, journal articles, conference papers, book chapters, and patents.">
     <meta name="keywords"
-        content="SHRI Lab, IIT Patna, Publications, Research Papers, Journal Articles, Conference Papers, Patents, Dr. Jyotindra Narayan">
+        content="SHRI Lab, IIT Patna, Mechanical Department, Mechanical Engineering, Publications, Research Papers, Journal Articles, Conference Papers, Patents, Dr. Jyotindra Narayan, Robotics, Exoskeleton, Physics Informed Neural Network, PINN, Rehabilitation Robotics, Bioengineering, Cyber-Physical Systems, Control Systems, Data-Driven Systems, Biomechanics, Gait Analysis, Human-Robot Interaction, Medical Robotics, Predictive Modeling, Robust Control, Smart Healthcare">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://jnarayan.in/publications.html">
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <link rel="canonical" href="https://jyotindranarayan.in/publications.html">
     <meta property="og:title" content="Publications | SHRI Lab | IIT Patna">
     <meta property="og:description"
         content="Research publications from SHRI Lab - Books, Journal Articles, Conference Papers, Book Chapters, and Patents.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://jnarayan.in/publications.html">
-    <meta property="og:image" content="" id="og-image-meta">
+    <meta property="og:url" content="https://jyotindranarayan.in/publications.html">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:image" content="https://jyotindranarayan.in/images/shri_lab_logo.png" id="og-image-meta">
+    <meta property="og:image:alt" content="SHRI Lab Logo">
     <meta property="og:site_name" content="SHRI Lab">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Publications | SHRI Lab | IIT Patna">
     <meta name="twitter:description" content="Research publications from SHRI Lab at IIT Patna">
-    <meta name="twitter:image" content="">
-    <link rel="icon" type="image/png" href="" id="favicon-link">
+    <meta name="twitter:image" content="https://jyotindranarayan.in/images/shri_lab_logo.png">
+    <link rel="icon" type="image/png" href="images/fevicon.png" id="favicon-link">
+    <link rel="apple-touch-icon" href="images/shri_lab_logo.png">
+    
+    <!-- Structured Data - CollectionPage for Publications -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "Publications | SHRI Lab | IIT Patna",
+        "description": "Research publications from SHRI Lab including books, journal articles, conference papers, book chapters, and patents.",
+        "url": "https://jyotindranarayan.in/publications.html",
+        "isPartOf": {
+            "@type": "WebSite",
+            "name": "SHRI Lab",
+            "url": "https://jyotindranarayan.in/"
+        },
+        "about": {
+            "@type": "Thing",
+            "name": "Academic Publications"
+        },
+        "breadcrumb": {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "Home",
+                    "item": "https://jyotindranarayan.in/"
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "name": "Publications",
+                    "item": "https://jyotindranarayan.in/publications.html"
+                }
+            ]
+        }
+    }
+    </script>
 </head>
 
-<body>
+<body class="loading">
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader-content">
+            <div class="spinner"></div>
+            <p class="loader-text">Loading Publications...</p>
+        </div>
+    </div>
+
     <!-- Navigation -->
     <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
         <div class="container">
@@ -171,6 +221,25 @@
     <script src="scripts/animations.js"></script>
     <script src="scripts/publications.js"></script>
     <script src="scripts/site-assets.js"></script>
+    
+    <!-- Preloader Script -->
+    <script>
+        (function() {
+            function hidePreloader() {
+                const preloader = document.getElementById('preloader');
+                const body = document.body;
+                if (preloader) {
+                    preloader.classList.add('fade-out');
+                    setTimeout(function() {
+                        preloader.style.display = 'none';
+                        body.classList.remove('loading');
+                    }, 500);
+                }
+            }
+            window.addEventListener('load', hidePreloader);
+            setTimeout(hidePreloader, 5000);
+        })();
+    </script>
 </body>
 
 </html>
