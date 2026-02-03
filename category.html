@@ -6,7 +6,7 @@
     <title>Research Category - Dr. Jyotindra Narayan</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/style.css?v=16">
     <!-- Load Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <!-- Load configuration -->
@@ -70,7 +70,53 @@
     <div id="preloader">
         <div class="loader-content">
             <div class="spinner"></div>
-            <p class="loader-text">Loading Research...</p>
+            <div class="preloader-logos">
+                <img src="" alt="IIT Patna" class="preloader-logo" id="preloader-iit-logo">
+                <img src="" alt="SHRI Lab" class="preloader-logo" id="preloader-lab-logo">
+            </div>
+            <h2 class="preloader-lab-name">SHRI Laboratory</h2>
+            <p class="preloader-tagline">Smart Healthcare & Robotics Interfacing Lab</p>
+            <div class="keyword-container">
+                <!-- Row 1: Scrolls left -->
+                <div class="keyword-row row-1">
+                    <span class="keyword-item">Rehabilitation Robotics</span>
+                    <span class="keyword-item">Exoskeleton Systems</span>
+                    <span class="keyword-item">Control Systems</span>
+                    <span class="keyword-item">Medical Robotics</span>
+                    <!-- Duplicate for seamless loop -->
+                    <span class="keyword-item">Rehabilitation Robotics</span>
+                    <span class="keyword-item">Exoskeleton Systems</span>
+                    <span class="keyword-item">Control Systems</span>
+                    <span class="keyword-item">Medical Robotics</span>
+                </div>
+                <!-- Row 2: Scrolls right -->
+                <div class="keyword-row row-2">
+                    <span class="keyword-item">Human-Robot Interaction</span>
+                    <span class="keyword-item">Biomechanics</span>
+                    <span class="keyword-item">Gait Analysis</span>
+                    <span class="keyword-item">Smart Healthcare</span>
+                    <!-- Duplicate for seamless loop -->
+                    <span class="keyword-item">Human-Robot Interaction</span>
+                    <span class="keyword-item">Biomechanics</span>
+                    <span class="keyword-item">Gait Analysis</span>
+                    <span class="keyword-item">Smart Healthcare</span>
+                </div>
+                <!-- Row 3: Scrolls left slower -->
+                <div class="keyword-row row-3">
+                    <span class="keyword-item">Physics-Informed Neural Networks</span>
+                    <span class="keyword-item">Predictive Modeling</span>
+                    <span class="keyword-item">Cyber-Physical Systems</span>
+                    <span class="keyword-item">Data-Driven Control</span>
+                    <!-- Duplicate for seamless loop -->
+                    <span class="keyword-item">Physics-Informed Neural Networks</span>
+                    <span class="keyword-item">Predictive Modeling</span>
+                    <span class="keyword-item">Cyber-Physical Systems</span>
+                    <span class="keyword-item">Data-Driven Control</span>
+                </div>
+            </div>
+            <div class="loader-bar">
+                <div class="loader-bar-inner"></div>
+            </div>
         </div>
     </div>
 
@@ -153,9 +199,24 @@
     <!-- Preloader Script -->
     <script>
         (function() {
+            let preloaderHidden = false;
+            let logosReady = false;
+            const MIN_DISPLAY_TIME = 3000; // 3 seconds to show multi-row keywords
+            let startTime = Date.now();
+            
             function hidePreloader() {
+                if (preloaderHidden) return;
+                
+                const timeElapsed = Date.now() - startTime;
+                if (!logosReady || timeElapsed < MIN_DISPLAY_TIME) {
+                    return;
+                }
+                
+                preloaderHidden = true;
+                
                 const preloader = document.getElementById('preloader');
                 const body = document.body;
+                
                 if (preloader) {
                     preloader.classList.add('fade-out');
                     setTimeout(function() {
@@ -164,8 +225,19 @@
                     }, 500);
                 }
             }
-            window.addEventListener('load', hidePreloader);
-            setTimeout(hidePreloader, 5000);
+            
+            window.addEventListener('preloaderLogosReady', function() {
+                logosReady = true;
+                startTime = Date.now(); // Reset timer when logos are visible
+                setTimeout(hidePreloader, MIN_DISPLAY_TIME);
+            });
+            
+            window.addEventListener('load', function() {
+                logosReady = true;
+                setTimeout(hidePreloader, 500);
+            });
+            
+            setTimeout(function() { logosReady = true; hidePreloader(); }, 6000);
         })();
     </script>
 </body>

@@ -22,16 +22,214 @@
 
 .loader-content {
     text-align: center;
+    max-width: 90%;
+    width: 100%;
+    padding: 0 1rem;
 }
 
+/* Preloader Logos Container - Initially hidden until loaded */
+.preloader-logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    transition: opacity 0.5s ease-in;
+}
+
+.preloader-logos.logos-loaded {
+    opacity: 1;
+}
+
+.preloader-logo {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    padding: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    animation: logoFloat 2s ease-in-out infinite;
+}
+
+.preloader-logo:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.preloader-logo:nth-child(2) {
+    animation-delay: 0.5s;
+}
+
+@keyframes logoFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+/* Lab name in preloader */
+.preloader-lab-name {
+    color: #ffffff;
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.preloader-tagline {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+    font-weight: 400;
+    margin-bottom: 1.5rem;
+}
+
+/* Animated Keywords Container - Multi-row flowing display */
+.keyword-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto 1.5rem;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Multiple rows of keywords */
+.keyword-row {
+    display: flex;
+    white-space: nowrap;
+    margin-bottom: 0.5rem;
+}
+
+.keyword-row:last-child {
+    margin-bottom: 0;
+}
+
+/* First row scrolls left */
+.keyword-row.row-1 {
+    animation: scrollLeft 8s linear infinite;
+}
+
+/* Second row scrolls right */
+.keyword-row.row-2 {
+    animation: scrollRight 10s linear infinite;
+}
+
+/* Third row scrolls left slower */
+.keyword-row.row-3 {
+    animation: scrollLeft 12s linear infinite;
+}
+
+.keyword-item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.4rem 1rem;
+    margin: 0 0.4rem;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.keyword-item:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: scale(1.05);
+}
+
+@keyframes scrollLeft {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes scrollRight {
+    0% {
+        transform: translateX(-50%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* Loading bar */
+.loader-bar {
+    width: 200px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.loader-bar-inner {
+    width: 40%;
+    height: 100%;
+    background: #ffffff;
+    border-radius: 2px;
+    animation: loaderSlide 1.5s ease-in-out infinite;
+}
+
+@keyframes loaderSlide {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(400%);
+    }
+}
+
+/* Initial loading spinner - shows while logos are being fetched */
 .spinner {
-    width: 60px;
-    height: 60px;
-    border: 4px solid rgba(255, 255, 255, 0.2);
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(255, 255, 255, 0.2);
     border-top-color: #ffffff;
     border-radius: 50%;
     animation: spin 1s linear infinite;
-    margin: 0 auto 20px;
+    margin: 0 auto 1.5rem;
+}
+
+/* Hide spinner once logos are loaded */
+.preloader-logos.logos-loaded ~ .spinner,
+.logos-loaded + .spinner {
+    display: none;
+}
+
+/* Show spinner initially, hide when logos loaded */
+.loader-content .spinner {
+    display: block;
+}
+
+.loader-content.logos-ready .spinner {
+    display: none;
+}
+
+/* Hide other content until logos are ready */
+.loader-content .preloader-lab-name,
+.loader-content .preloader-tagline,
+.loader-content .keyword-container,
+.loader-content .loader-bar {
+    opacity: 0;
+    transition: opacity 0.4s ease-in;
+}
+
+.loader-content.logos-ready .preloader-lab-name,
+.loader-content.logos-ready .preloader-tagline,
+.loader-content.logos-ready .keyword-container,
+.loader-content.logos-ready .loader-bar {
+    opacity: 1;
 }
 
 @keyframes spin {
@@ -42,18 +240,105 @@
 
 .loader-text {
     color: #ffffff;
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 500;
     letter-spacing: 1px;
-    animation: pulse 1.5s ease-in-out infinite;
+    margin-top: 1rem;
 }
 
-@keyframes pulse {
-    0%, 100% {
-        opacity: 1;
+/* Responsive preloader - Mobile */
+@media screen and (max-width: 768px) {
+    .loader-content {
+        padding: 0 0.75rem;
     }
-    50% {
-        opacity: 0.5;
+    
+    .preloader-logos {
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+    }
+    
+    .preloader-logo {
+        width: 70px;
+        height: 70px;
+        padding: 6px;
+        border-radius: 10px;
+    }
+    
+    .preloader-lab-name {
+        font-size: 1.3rem;
+        letter-spacing: 1px;
+    }
+    
+    .preloader-tagline {
+        font-size: 0.85rem;
+        margin-bottom: 1rem;
+    }
+    
+    .keyword-container {
+        max-width: 100%;
+        margin-bottom: 1rem;
+    }
+    
+    .keyword-row {
+        margin-bottom: 0.4rem;
+    }
+    
+    .keyword-item {
+        padding: 0.3rem 0.7rem;
+        margin: 0 0.3rem;
+        font-size: 0.75rem;
+    }
+    
+    .loader-bar {
+        width: 120px;
+        height: 3px;
+    }
+    
+    .spinner {
+        width: 40px;
+        height: 40px;
+        border-width: 3px;
+    }
+}
+
+/* Very small screens */
+@media screen and (max-width: 480px) {
+    .preloader-logos {
+        gap: 0.5rem;
+    }
+    
+    .preloader-logo {
+        width: 60px;
+        height: 60px;
+        padding: 5px;
+        border-radius: 8px;
+    }
+    
+    .preloader-lab-name {
+        font-size: 1.1rem;
+        letter-spacing: 0.5px;
+    }
+    
+    .preloader-tagline {
+        font-size: 0.75rem;
+    }
+    
+    .keyword-container {
+        max-width: 100%;
+    }
+    
+    .keyword-row {
+        margin-bottom: 0.3rem;
+    }
+    
+    .keyword-item {
+        padding: 0.25rem 0.5rem;
+        margin: 0 0.2rem;
+        font-size: 0.65rem;
+    }
+    
+    .loader-bar {
+        width: 100px;
     }
 }
 
@@ -93,12 +378,12 @@ body:not(.loading) > * {
     --shadow-md: 0 3px 6px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 8px 15px rgba(0, 0, 0, 0.15);
 
-    /* Typography Scale - Compact Modern */
+    /* Typography Scale - Hierarchical Design */
     --h1-size: 2.8rem;
-    --h2-size: 2rem;
-    --h3-size: 1.6rem;
-    --h4-size: 1.35rem;
-    --h5-size: 1.15rem;
+    --h2-size: 2.2rem;
+    --h3-size: 1.8rem;      /* Section main headings (Awards, Publications, Members) */
+    --h4-size: 1.4rem;      /* Subsection headings (Honours, Editorial, Books, Journals, Doctoral Students) */
+    --h5-size: 1.15rem;     /* Year headers and other tertiary headings */
     --body-size: 1.05rem;
     --small-size: 0.95rem;
 }
@@ -115,12 +400,7 @@ body:not(.loading) > * {
     border: 1px solid rgba(43, 108, 176, 0.1);
 }
 
-.section h3 {
-    font-size: var(--h3-size);
-    margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid var(--primary-accent);
-}
+/* Note: Section h3 and h4 are defined in the main section styles below */
 
 /* ... headers and containers ... */
 
@@ -541,35 +821,79 @@ html {
         display: block !important;
     }
 
-    .navbar-menu {
+    /* Override Bulma's navbar-menu - Force blue theme on mobile */
+    /* Using ID selector for maximum specificity */
+    #navMenu,
+    #navMenu.navbar-menu,
+    .navbar #navMenu,
+    .navbar-menu,
+    .navbar .navbar-menu,
+    nav.navbar .navbar-menu,
+    .navbar.is-fixed-top .navbar-menu,
+    nav.navbar.is-fixed-top #navMenu {
         display: none;
         position: absolute;
         top: 100%;
         left: 0;
         right: 0;
-        background: var(--primary-accent);
-        box-shadow: var(--shadow-md);
-        padding: 0.5rem 0;
-        border-radius: 0 0 8px 8px;
+        background: linear-gradient(135deg, #1a365d 0%, #2b6cb0 100%) !important;
+        background-color: #1a365d !important;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        padding: 0.75rem 0;
+        border-radius: 0 0 12px 12px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-top: none;
     }
 
-    .navbar-menu.is-active {
+    #navMenu.is-active,
+    .navbar-menu.is-active,
+    .navbar .navbar-menu.is-active,
+    nav.navbar .navbar-menu.is-active {
         display: block !important;
     }
 
+    #navMenu .navbar-end,
     .navbar-end {
         display: flex;
         flex-direction: column;
         align-items: stretch;
+        background: transparent !important;
+        background-color: transparent !important;
     }
 
-    .navbar-item {
-        padding: 0.75rem 1.5rem;
-        border-radius: 0;
+    /* Force all navbar items in mobile to have blue theme */
+    #navMenu .navbar-item,
+    #navMenu .navbar-end .navbar-item,
+    .navbar-menu .navbar-item,
+    .navbar-menu .navbar-end .navbar-item,
+    .navbar .navbar-menu .navbar-item {
+        padding: 0.875rem 1.5rem !important;
+        border-radius: 0 !important;
+        margin: 0 !important;
+        font-size: 1rem !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        color: white !important;
+        background: transparent !important;
+        background-color: transparent !important;
+    }
+    
+    #navMenu .navbar-item:last-child,
+    .navbar-menu .navbar-item:last-child {
+        border-bottom: none;
     }
 
-    .navbar-item:hover {
+    .navbar-menu .navbar-item:hover,
+    .navbar-menu .navbar-end .navbar-item:hover {
         background-color: rgba(255, 255, 255, 0.15) !important;
+    }
+    
+    .navbar-menu .navbar-item.is-active,
+    .navbar-menu .navbar-end .navbar-item.is-active {
+        background-color: rgba(255, 255, 255, 0.2) !important;
+    }
+    
+    .navbar-menu .navbar-item.is-active::after {
+        display: none;
     }
 }
 
@@ -609,17 +933,19 @@ main {
 .section h3 {
     color: var(--text-primary);
     font-size: var(--h3-size);
-    font-weight: 600;
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
     border-bottom: 3px solid var(--primary-accent);
 }
 
 .section h4 {
     color: var(--text-primary);
     font-size: var(--h4-size);
-    font-weight: 500;
-    margin-bottom: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--primary-accent);
 }
 
 .section p,
@@ -627,6 +953,27 @@ main {
 .section .text-content {
     font-size: var(--body-size);
     line-height: 1.8;
+}
+
+/* Responsive typography for section headings */
+@media screen and (max-width: 768px) {
+    .section h3 {
+        font-size: calc(var(--h3-size) * 0.85);
+    }
+    
+    .section h4 {
+        font-size: calc(var(--h4-size) * 0.9);
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .section h3 {
+        font-size: calc(var(--h3-size) * 0.75);
+    }
+    
+    .section h4 {
+        font-size: calc(var(--h4-size) * 0.85);
+    }
 }
 
 /* Experience Section */
@@ -652,11 +999,11 @@ main {
 
 .experience-column h4 {
     color: var(--text-primary);
-    font-size: 1.8rem;
+    font-size: var(--h4-size);
     font-weight: 600;
-    margin-bottom: 1.5rem;
-    padding-bottom: 1rem;
-    border-bottom: 3px solid var(--primary-accent);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--primary-accent);
 }
 
 .experience-items {
@@ -1007,29 +1354,29 @@ main {
     }
 }
 
-/* Section Headers (Journal Articles, etc.) */
+/* Section Headers (Journal Articles, etc.) - h4 level */
 .journal-articles h4,
 .conference-articles h4,
 .book-chapters h4,
 .books h4,
 .patents h4 {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-    padding-bottom: 0.3rem;
-    border-bottom: 3px solid var(--primary-accent);
+    font-size: var(--h4-size);
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--primary-accent);
     color: var(--text-primary);
     font-weight: 600;
 }
 
-/* Year Headers - Target the actual class used by JavaScript */
+/* Year Headers - h5 level (smaller than section headers) */
 .publication-year,
 .year-heading {
-    font-size: 1.6rem;
+    font-size: var(--h5-size);
     font-weight: 600;
     color: var(--primary-accent);
     margin: 0.6rem 0 0.3rem;
     padding-left: 0.5rem;
-    border-left: 4px solid var(--primary-accent);
+    border-left: 3px solid var(--primary-accent);
 }
 
 /* Year Section Container */
@@ -1167,12 +1514,12 @@ main {
     .book-chapters h4,
     .books h4,
     .patents h4 {
-        font-size: 1.8rem;
+        font-size: 1.25rem;
     }
 
     .publication-year,
     .year-heading {
-        font-size: 1.5rem;
+        font-size: 1.05rem;
         margin: 0.5rem 0 0.25rem;
     }
 
@@ -1223,13 +1570,13 @@ main {
     .book-chapters h4,
     .books h4,
     .patents h4 {
-        font-size: 1.6rem;
+        font-size: 1.15rem;
         margin-bottom: 1rem;
     }
 
     .publication-year,
     .year-heading {
-        font-size: 1.4rem;
+        font-size: 1rem;
         margin: 0.4rem 0 0.2rem;
     }
 
@@ -1585,30 +1932,27 @@ main {
 
 #students .present-students>h3,
 #students .past-students>h3 {
-    font-size: 1.8rem;
+    font-size: var(--h3-size);
     font-weight: 600;
     margin: 0 0 1rem 0;
     padding-bottom: 0.6rem;
     border-bottom: 2px solid var(--primary-accent);
 }
 
-.masters-students h4,
-.bachelors-students h4,
-.intern-students h4 {
-    font-size: 1.4rem;
-}
+/* Note: Student category h4 styles are now defined in the main section */
 
 @media screen and (max-width: 768px) {
 
     #students .present-students>h3,
     #students .past-students>h3 {
-        font-size: 1.6rem;
+        font-size: 1.5rem;
     }
 
+    .doctoral-students h4,
     .masters-students h4,
     .bachelors-students h4,
     .intern-students h4 {
-        font-size: 1.25rem;
+        font-size: 1.2rem;
     }
 }
 
@@ -1616,13 +1960,14 @@ main {
 
     #students .present-students>h3,
     #students .past-students>h3 {
-        font-size: 1.45rem;
+        font-size: 1.35rem;
     }
 
+    .doctoral-students h4,
     .masters-students h4,
     .bachelors-students h4,
     .intern-students h4 {
-        font-size: 1.15rem;
+        font-size: 1.1rem;
     }
 }
 
@@ -1662,14 +2007,15 @@ main {
     font-weight: 500;
 }
 
-/* Student category headers */
+/* Student category headers - h4 level */
+.doctoral-students h4,
 .masters-students h4,
 .bachelors-students h4,
 .intern-students h4 {
-    font-size: 1.6rem;
+    font-size: var(--h4-size);
     font-weight: 600;
-    margin-bottom: 1.2rem;
-    padding-bottom: 0.75rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
     border-bottom: 2px solid var(--primary-accent);
     color: var(--text-primary);
 }
@@ -1681,11 +2027,11 @@ main {
 
 .awards-category h4 {
     color: var(--text-primary);
-    font-size: 1.8rem;
+    font-size: var(--h4-size);
     font-weight: 600;
-    margin-bottom: 1.2rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 3px solid var(--primary-accent);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--primary-accent);
 }
 
 .award-item {
@@ -1823,7 +2169,7 @@ main {
 
 @media screen and (max-width: 768px) {
     .awards-category h4 {
-        font-size: 1.6rem;
+        font-size: 1.25rem;
     }
 
     .award-item {
@@ -1872,7 +2218,7 @@ main {
     }
 
     .experience-column h4 {
-        font-size: 1.6rem;
+        font-size: 1.25rem;
     }
 
     .experience-item {
@@ -1924,7 +2270,7 @@ main {
 
 @media screen and (max-width: 480px) {
     .awards-category h4 {
-        font-size: 1.4rem;
+        font-size: 1.15rem;
     }
 
     .award-item {
@@ -1968,7 +2314,7 @@ main {
     }
 
     .experience-column h4 {
-        font-size: 1.4rem;
+        font-size: 1.15rem;
     }
 
     .experience-item {
@@ -1976,7 +2322,7 @@ main {
     }
 
     .experience-item h4 {
-        font-size: 1.15rem;
+        font-size: 1.1rem;
     }
 
     .education-item.phd-item,
@@ -3562,6 +3908,94 @@ a:hover {
     padding: 0;
 }
 
+/* Teaching Dropdown Container */
+.teaching-dropdown {
+    margin-bottom: 0.75rem;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border-light);
+    background: var(--bg-card);
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.teaching-dropdown:hover {
+    border-color: var(--primary-light);
+    box-shadow: var(--shadow-sm);
+}
+
+.teaching-dropdown.is-open {
+    border-color: var(--primary-accent);
+    box-shadow: var(--shadow-md);
+}
+
+/* Teaching Dropdown Header (clickable) */
+.teaching-dropdown-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    background: linear-gradient(135deg, rgba(26, 54, 93, 0.03) 0%, rgba(43, 108, 176, 0.05) 100%);
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.3s ease;
+}
+
+.teaching-dropdown-header:hover {
+    background: linear-gradient(135deg, rgba(26, 54, 93, 0.06) 0%, rgba(43, 108, 176, 0.08) 100%);
+}
+
+.teaching-dropdown.is-open .teaching-dropdown-header {
+    background: linear-gradient(135deg, rgba(26, 54, 93, 0.08) 0%, rgba(43, 108, 176, 0.1) 100%);
+    border-bottom: 1px solid var(--border-light);
+}
+
+/* Dropdown Icon */
+.teaching-dropdown-header .dropdown-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--primary-accent);
+    transition: transform 0.3s ease;
+}
+
+.teaching-dropdown.is-open .dropdown-icon {
+    transform: rotate(90deg);
+}
+
+/* Session Title - Uses h4-size for consistency */
+.teaching-dropdown-header .session-title {
+    font-size: var(--h4-size);
+    font-weight: 700;
+    color: var(--primary-accent);
+    flex: 1;
+}
+
+/* Course Count Badge */
+.teaching-dropdown-header .course-count {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-light);
+    background: rgba(43, 108, 176, 0.1);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+}
+
+/* Dropdown Content */
+.teaching-dropdown-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    background: var(--bg-card);
+}
+
+.teaching-dropdown-content .teaching-list {
+    padding: 0.5rem 1rem 1rem;
+}
+
 .teaching-list {
     display: flex;
     flex-direction: column;
@@ -3615,9 +4049,9 @@ a:hover {
     color: var(--primary-accent);
 }
 
-/* Teaching session and role headers */
+/* Legacy teaching session header (for fallback/other) */
 .teaching-session {
-    font-size: 1.2rem;
+    font-size: var(--h4-size);
     font-weight: 700;
     color: var(--primary-accent);
     margin: 0.8rem 0 0.4rem;
@@ -3626,7 +4060,7 @@ a:hover {
 }
 
 .teaching-role {
-    font-size: 1.1rem;
+    font-size: var(--h5-size);
     font-weight: 600;
     color: var(--text-secondary);
     margin: 0.4rem 0 0.25rem;
@@ -3635,6 +4069,29 @@ a:hover {
 }
 
 @media screen and (max-width: 768px) {
+    .teaching-dropdown-header {
+        padding: 0.75rem 0.875rem;
+        gap: 0.5rem;
+    }
+    
+    .teaching-dropdown-header .session-title {
+        font-size: calc(var(--h4-size) * 0.9);
+    }
+    
+    .teaching-dropdown-header .course-count {
+        font-size: 0.75rem;
+        padding: 0.2rem 0.5rem;
+    }
+    
+    .teaching-dropdown-header .dropdown-icon {
+        width: 1.25rem;
+        height: 1.25rem;
+    }
+    
+    .teaching-dropdown-content .teaching-list {
+        padding: 0.4rem 0.75rem 0.75rem;
+    }
+    
     .teaching-item {
         padding: 0.4rem 0.6rem;
         gap: 0.4rem;
@@ -3649,15 +4106,28 @@ a:hover {
     }
 
     .teaching-session {
-        font-size: 1.1rem;
+        font-size: calc(var(--h4-size) * 0.9);
     }
 
     .teaching-role {
-        font-size: 1rem;
+        font-size: calc(var(--h5-size) * 0.95);
     }
 }
 
 @media screen and (max-width: 480px) {
+    .teaching-dropdown-header {
+        padding: 0.625rem 0.75rem;
+    }
+    
+    .teaching-dropdown-header .session-title {
+        font-size: calc(var(--h4-size) * 0.85);
+    }
+    
+    .teaching-dropdown-header .course-count {
+        font-size: 0.7rem;
+        padding: 0.15rem 0.4rem;
+    }
+    
     .teaching-item {
         padding: 0.35rem 0.5rem;
         gap: 0.3rem;
@@ -3858,7 +4328,7 @@ a:hover {
         right: 0 !important;
         top: 100% !important;
         z-index: 9999 !important;
-        background: #901E3E !important;
+        background: linear-gradient(135deg, #1a365d 0%, #2b6cb0 100%) !important;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
         padding: 1rem !important;
         border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
@@ -3967,6 +4437,36 @@ a:hover {
     background: rgba(255, 255, 255, 0.95);
     border-radius: 12px;
     padding: 12px;
+    /* Prevent FOUC - start hidden until image loads */
+    opacity: 0;
+    transition: opacity 0.4s ease-in;
+}
+
+/* Show logos when they have loaded (src is set and image loads) */
+.institution-logo.loaded,
+.lab-logo.loaded {
+    opacity: 1;
+}
+
+/* Placeholder styling for logo containers while loading */
+.banner-logo-left,
+.banner-logo-right {
+    min-width: 220px;
+    min-height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    transition: background 0.3s ease;
+}
+
+/* Remove placeholder background when logo is loaded */
+.banner-logo-left:has(.loaded),
+.banner-logo-right:has(.loaded) {
+    background: transparent;
+    min-width: auto;
+    min-height: auto;
 }
 
 .banner-text {
@@ -4020,6 +4520,14 @@ a:hover {
     .banner-logo-right {
         display: flex;
         justify-content: center;
+        min-width: 160px;
+        min-height: 160px;
+    }
+    
+    .banner-logo-left:has(.loaded),
+    .banner-logo-right:has(.loaded) {
+        min-width: auto;
+        min-height: auto;
     }
 }
 

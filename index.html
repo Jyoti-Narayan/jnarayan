@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="styles/style.css?v=11">
+    <link rel="stylesheet" href="styles/style.css?v=16">
     <!-- Load Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <!-- Load configuration -->
@@ -92,7 +92,53 @@
     <div id="preloader">
         <div class="loader-content">
             <div class="spinner"></div>
-            <p class="loader-text">Loading SHRI Lab...</p>
+            <div class="preloader-logos">
+                <img src="" alt="IIT Patna" class="preloader-logo" id="preloader-iit-logo">
+                <img src="" alt="SHRI Lab" class="preloader-logo" id="preloader-lab-logo">
+            </div>
+            <h2 class="preloader-lab-name">SHRI Laboratory</h2>
+            <p class="preloader-tagline">Smart Healthcare & Robotics Interfacing Lab</p>
+            <div class="keyword-container">
+                <!-- Row 1: Scrolls left -->
+                <div class="keyword-row row-1">
+                    <span class="keyword-item">Rehabilitation Robotics</span>
+                    <span class="keyword-item">Exoskeleton Systems</span>
+                    <span class="keyword-item">Control Systems</span>
+                    <span class="keyword-item">Medical Robotics</span>
+                    <!-- Duplicate for seamless loop -->
+                    <span class="keyword-item">Rehabilitation Robotics</span>
+                    <span class="keyword-item">Exoskeleton Systems</span>
+                    <span class="keyword-item">Control Systems</span>
+                    <span class="keyword-item">Medical Robotics</span>
+                </div>
+                <!-- Row 2: Scrolls right -->
+                <div class="keyword-row row-2">
+                    <span class="keyword-item">Human-Robot Interaction</span>
+                    <span class="keyword-item">Biomechanics</span>
+                    <span class="keyword-item">Gait Analysis</span>
+                    <span class="keyword-item">Smart Healthcare</span>
+                    <!-- Duplicate for seamless loop -->
+                    <span class="keyword-item">Human-Robot Interaction</span>
+                    <span class="keyword-item">Biomechanics</span>
+                    <span class="keyword-item">Gait Analysis</span>
+                    <span class="keyword-item">Smart Healthcare</span>
+                </div>
+                <!-- Row 3: Scrolls left slower -->
+                <div class="keyword-row row-3">
+                    <span class="keyword-item">Physics-Informed Neural Networks</span>
+                    <span class="keyword-item">Predictive Modeling</span>
+                    <span class="keyword-item">Cyber-Physical Systems</span>
+                    <span class="keyword-item">Data-Driven Control</span>
+                    <!-- Duplicate for seamless loop -->
+                    <span class="keyword-item">Physics-Informed Neural Networks</span>
+                    <span class="keyword-item">Predictive Modeling</span>
+                    <span class="keyword-item">Cyber-Physical Systems</span>
+                    <span class="keyword-item">Data-Driven Control</span>
+                </div>
+            </div>
+            <div class="loader-bar">
+                <div class="loader-bar-inner"></div>
+            </div>
         </div>
     </div>
 
@@ -564,24 +610,24 @@
     <!-- Preloader Script -->
     <script>
         (function() {
-            // Critical images to wait for
-            const criticalImages = [
-                document.getElementById('institution-logo'),
-                document.getElementById('lab-logo'),
-                document.querySelector('.pi-image img')
-            ].filter(img => img !== null);
-            
-            let loadedCount = 0;
-            const totalImages = criticalImages.length;
-            
-            function checkAllLoaded() {
-                loadedCount++;
-                if (loadedCount >= totalImages) {
-                    hidePreloader();
-                }
-            }
+            let preloaderHidden = false;
+            let logosReady = false;
+            // With multi-row scrolling keywords, all are visible at once
+            // so we just need a reasonable viewing time
+            const MIN_DISPLAY_TIME = 3000; // 3 seconds to appreciate the keywords
+            let startTime = Date.now();
             
             function hidePreloader() {
+                if (preloaderHidden) return;
+                
+                // Only hide if both conditions are met: logos ready and minimum time passed
+                const timeElapsed = Date.now() - startTime;
+                if (!logosReady || timeElapsed < MIN_DISPLAY_TIME) {
+                    return;
+                }
+                
+                preloaderHidden = true;
+                
                 const preloader = document.getElementById('preloader');
                 const body = document.body;
                 
@@ -594,23 +640,66 @@
                 }
             }
             
-            // Wait for critical images
-            if (totalImages === 0) {
-                // No critical images found, hide after DOM ready
-                window.addEventListener('load', hidePreloader);
-            } else {
-                criticalImages.forEach(function(img) {
-                    if (img.complete) {
-                        checkAllLoaded();
-                    } else {
-                        img.addEventListener('load', checkAllLoaded);
-                        img.addEventListener('error', checkAllLoaded); // Handle failed loads
-                    }
-                });
+            // Listen for preloader logos ready event
+            window.addEventListener('preloaderLogosReady', function() {
+                logosReady = true;
+                startTime = Date.now(); // Reset timer when logos are actually visible
+                // Check if we can hide after minimum display time
+                setTimeout(function() {
+                    hidePreloader();
+                }, MIN_DISPLAY_TIME);
+            });
+            
+            // Wait for banner logos to be loaded
+            function checkBannerLogosLoaded() {
+                const institutionLogo = document.getElementById('institution-logo');
+                const labLogo = document.getElementById('lab-logo');
+                
+                const institutionLoaded = institutionLogo && institutionLogo.classList.contains('loaded');
+                const labLoaded = labLogo && labLogo.classList.contains('loaded');
+                
+                return institutionLoaded && labLoaded;
             }
             
-            // Fallback: Hide preloader after 5 seconds max
-            setTimeout(hidePreloader, 5000);
+            // Check periodically for all conditions
+            let checkCount = 0;
+            const maxChecks = 80; // Max 8 seconds
+            
+            function pollForReady() {
+                checkCount++;
+                
+                // Check if banner logos are loaded and we should hide
+                if (logosReady && checkBannerLogosLoaded()) {
+                    const timeElapsed = Date.now() - startTime;
+                    if (timeElapsed >= MIN_DISPLAY_TIME) {
+                        hidePreloader();
+                        return;
+                    }
+                }
+                
+                if (checkCount >= maxChecks) {
+                    // Force hide after max time
+                    preloaderHidden = false;
+                    logosReady = true;
+                    hidePreloader();
+                    return;
+                }
+                
+                setTimeout(pollForReady, 100);
+            }
+            
+            // Start polling
+            setTimeout(pollForLogos, 300);
+            
+            function pollForLogos() {
+                pollForReady();
+            }
+            
+            // Fallback: Hide preloader after 6 seconds max
+            setTimeout(function() {
+                logosReady = true;
+                hidePreloader();
+            }, 6000);
         })();
     </script>
 </body>

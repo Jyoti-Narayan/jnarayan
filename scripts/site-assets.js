@@ -29,9 +29,88 @@ async function fetchSiteAssets() {
     }
 }
 
+// Load an image and return a promise
+function loadImage(url) {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve(img);
+        img.onerror = () => reject(new Error('Failed to load image'));
+        img.src = url;
+    });
+}
+
+// Load preloader logos first, then show preloader content
+async function loadPreloaderLogos(assetMap) {
+    const preloaderIitLogo = document.getElementById('preloader-iit-logo');
+    const preloaderLabLogo = document.getElementById('preloader-lab-logo');
+    const preloaderLogosContainer = document.querySelector('.preloader-logos');
+    const loaderContent = document.querySelector('.loader-content');
+    
+    if (!preloaderIitLogo || !preloaderLabLogo) {
+        // No preloader logos on this page
+        if (loaderContent) loaderContent.classList.add('logos-ready');
+        return;
+    }
+    
+    const promises = [];
+    
+    // Get institution logo URL
+    if (assetMap['institution_logo']) {
+        const logoUrl = window.convertGoogleDriveUrl 
+            ? window.convertGoogleDriveUrl(assetMap['institution_logo'].asset_url) 
+            : assetMap['institution_logo'].asset_url;
+        
+        promises.push(
+            loadImage(logoUrl)
+                .then(() => {
+                    preloaderIitLogo.src = logoUrl;
+                })
+                .catch(() => {
+                    console.warn('Failed to load IIT logo for preloader');
+                })
+        );
+    }
+    
+    // Get lab logo URL
+    if (assetMap['lab_logo']) {
+        const logoUrl = window.convertGoogleDriveUrl 
+            ? window.convertGoogleDriveUrl(assetMap['lab_logo'].asset_url) 
+            : assetMap['lab_logo'].asset_url;
+        
+        promises.push(
+            loadImage(logoUrl)
+                .then(() => {
+                    preloaderLabLogo.src = logoUrl;
+                })
+                .catch(() => {
+                    console.warn('Failed to load lab logo for preloader');
+                })
+        );
+    }
+    
+    // Wait for both logos to load (or fail)
+    await Promise.allSettled(promises);
+    
+    // Show the logos container and other content
+    if (preloaderLogosContainer) {
+        preloaderLogosContainer.classList.add('logos-loaded');
+    }
+    if (loaderContent) {
+        loaderContent.classList.add('logos-ready');
+    }
+    
+    // Dispatch event that preloader logos are ready
+    window.dispatchEvent(new CustomEvent('preloaderLogosReady'));
+}
+
 function applySiteAssets(assets) {
     if (!assets || assets.length === 0) {
         console.warn('No site assets found in database');
+        // Still show preloader content even if no assets
+        const loaderContent = document.querySelector('.loader-content');
+        if (loaderContent) {
+            loaderContent.classList.add('logos-ready');
+        }
         return;
     }
 
@@ -41,11 +120,11 @@ function applySiteAssets(assets) {
         assetMap[asset.asset_key] = asset;
     });
 
-    // Apply favicon
-    if (assetMap['favicon']) {
+    // Apply lab logo as favicon
+    if (assetMap['lab_logo']) {
         const faviconUrl = window.convertGoogleDriveUrl 
-            ? window.convertGoogleDriveUrl(assetMap['favicon'].asset_url) 
-            : assetMap['favicon'].asset_url;
+            ? window.convertGoogleDriveUrl(assetMap['lab_logo'].asset_url) 
+            : assetMap['lab_logo'].asset_url;
         
         let faviconLink = document.querySelector('link[rel="icon"]');
         if (faviconLink) {
@@ -57,10 +136,10 @@ function applySiteAssets(assets) {
             faviconLink.href = faviconUrl;
             document.head.appendChild(faviconLink);
         }
-        console.log('Favicon loaded from database');
+        console.log('Favicon (lab logo) loaded from database');
     }
 
-    // Apply institution logo (IIT Patna)
+    // Apply institution logo (IIT Patna) to banner
     if (assetMap['institution_logo']) {
         const logoUrl = window.convertGoogleDriveUrl 
             ? window.convertGoogleDriveUrl(assetMap['institution_logo'].asset_url) 
@@ -68,7 +147,16 @@ function applySiteAssets(assets) {
         
         const institutionLogos = document.querySelectorAll('.institution-logo');
         institutionLogos.forEach(img => {
+            img.addEventListener('load', function() {
+                this.classList.add('loaded');
+            });
+            img.addEventListener('error', function() {
+                this.classList.add('loaded');
+            });
             img.src = logoUrl;
+            if (img.complete) {
+                img.classList.add('loaded');
+            }
             if (assetMap['institution_logo'].alt_text) {
                 img.alt = assetMap['institution_logo'].alt_text;
             }
@@ -76,7 +164,7 @@ function applySiteAssets(assets) {
         console.log('Institution logo loaded from database');
     }
 
-    // Apply lab logo (SHRI Lab)
+    // Apply lab logo (SHRI Lab) to banner
     if (assetMap['lab_logo']) {
         const logoUrl = window.convertGoogleDriveUrl 
             ? window.convertGoogleDriveUrl(assetMap['lab_logo'].asset_url) 
@@ -84,7 +172,16 @@ function applySiteAssets(assets) {
         
         const labLogos = document.querySelectorAll('.lab-logo');
         labLogos.forEach(img => {
+            img.addEventListener('load', function() {
+                this.classList.add('loaded');
+            });
+            img.addEventListener('error', function() {
+                this.classList.add('loaded');
+            });
             img.src = logoUrl;
+            if (img.complete) {
+                img.classList.add('loaded');
+            }
             if (assetMap['lab_logo'].alt_text) {
                 img.alt = assetMap['lab_logo'].alt_text;
             }
@@ -129,9 +226,29 @@ function applySiteAssets(assets) {
     console.log('All site assets applied successfully from database');
 }
 
-// Initialize site assets
+// Initialize site assets - load preloader logos first
 async function initSiteAssets() {
     const assets = await fetchSiteAssets();
+    
+    if (!assets || assets.length === 0) {
+        console.warn('No site assets found');
+        const loaderContent = document.querySelector('.loader-content');
+        if (loaderContent) {
+            loaderContent.classList.add('logos-ready');
+        }
+        return;
+    }
+    
+    // Create asset map
+    const assetMap = {};
+    assets.forEach(asset => {
+        assetMap[asset.asset_key] = asset;
+    });
+    
+    // Load preloader logos first (this will show them when ready)
+    await loadPreloaderLogos(assetMap);
+    
+    // Then apply all other assets
     applySiteAssets(assets);
 }
 
@@ -146,3 +263,4 @@ if (document.readyState === 'loading') {
 window.fetchSiteAssets = fetchSiteAssets;
 window.applySiteAssets = applySiteAssets;
 window.initSiteAssets = initSiteAssets;
+window.loadPreloaderLogos = loadPreloaderLogos;
