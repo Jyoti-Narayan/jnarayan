@@ -245,8 +245,11 @@ async function initSiteAssets() {
         assetMap[asset.asset_key] = asset;
     });
     
-    // Load preloader logos first (this will show them when ready)
-    await loadPreloaderLogos(assetMap);
+    // Load preloader logos only when the home page preloader is active.
+    const shouldLoadPreloader = window.shouldShowHomePreloader !== false && document.getElementById('preloader');
+    if (shouldLoadPreloader) {
+        await loadPreloaderLogos(assetMap);
+    }
     
     // Then apply all other assets
     applySiteAssets(assets);

@@ -172,13 +172,15 @@ create table public.students (
   id uuid not null default extensions.uuid_generate_v4 (),
   name text not null,
   status text not null,
-  year integer null,
   thesis_title text null,
   degree text not null,
   joint_supervisor text null,
   created_at timestamp with time zone not null default timezone ('utc'::text, now()),
   url text null,
   image_url text null,
+  year_start integer null,
+  year_end integer null,
+  project_role text null,
   constraint students_pkey primary key (id),
   constraint students_degree_check check (
     (
@@ -187,7 +189,8 @@ create table public.students (
           'Bachelors'::text,
           'Masters'::text,
           'Doctoral'::text,
-          'Intern'::text
+          'Intern'::text,
+          'Project'::text
         ]
       )
     )

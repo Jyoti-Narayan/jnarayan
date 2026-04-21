@@ -1,6 +1,26 @@
 // Initialize Supabase client
 const studentsClient = window.supabaseClient;
 
+function formatStudentYear(student) {
+    const startYear = student.year_start || student.year;
+    const endYear = student.year_end;
+
+    if (startYear && endYear) {
+        return `${startYear} - ${endYear}`;
+    }
+
+    if (startYear) {
+        return student.status === 'past' ? `${startYear}` : `${startYear} - Present`;
+    }
+
+    return 'Present';
+}
+
+function getStudentSortYear(student) {
+    const sortYear = Number(student.year_start || student.year_end || student.year || 0);
+    return Number.isFinite(sortYear) ? sortYear : 0;
+}
+
 // Function to create a student card
 function createStudentCard(student) {
     const card = document.createElement('div');
@@ -35,8 +55,23 @@ function createStudentCard(student) {
     yearSection.className = 'student-year';
     yearSection.innerHTML = `
         <i class="fas fa-calendar"></i>
-        <span>${student.year || 'Present'}</span>
+        <span>${formatStudentYear(student)}</span>
     `;
+
+    let projectRoleSection = null;
+    if (student.degree === 'Project' && student.project_role) {
+        projectRoleSection = document.createElement('div');
+        projectRoleSection.className = 'student-project-role';
+
+        const projectRoleIcon = document.createElement('i');
+        projectRoleIcon.className = 'fas fa-briefcase';
+
+        const projectRoleText = document.createElement('span');
+        projectRoleText.textContent = student.project_role;
+
+        projectRoleSection.appendChild(projectRoleIcon);
+        projectRoleSection.appendChild(projectRoleText);
+    }
 
     const thesisSection = document.createElement('div');
     thesisSection.className = 'student-thesis';
@@ -64,6 +99,9 @@ function createStudentCard(student) {
     }
 
     contentWrapper.appendChild(nameSection);
+    if (projectRoleSection) {
+        contentWrapper.appendChild(projectRoleSection);
+    }
     contentWrapper.appendChild(yearSection);
     contentWrapper.appendChild(thesisSection);
 
@@ -78,8 +116,7 @@ async function loadStudents() {
     try {
         const { data: students, error } = await studentsClient
             .from('students')
-            .select('*')
-            .order('year', { ascending: false, nullsFirst: false });
+            .select('*');
 
         if (error) throw error;
 
@@ -95,8 +132,9 @@ async function loadStudents() {
             container.style.flexDirection = 'column';
             container.style.gap = '2rem';
 
-            const present = categoryStudents.filter(s => s.status !== 'past');
-            const past = categoryStudents.filter(s => s.status === 'past');
+            const sortByYear = (items) => items.sort((a, b) => getStudentSortYear(b) - getStudentSortYear(a));
+            const present = sortByYear(categoryStudents.filter(s => s.status !== 'past'));
+            const past = sortByYear(categoryStudents.filter(s => s.status === 'past'));
 
             if (present.length > 0) {
                 // If we have mixed past/present, label this group. Otherwise just show them.
@@ -139,6 +177,7 @@ async function loadStudents() {
         if (groupedStudents.Doctoral) renderCategory('doctoral-grid', groupedStudents.Doctoral);
         if (groupedStudents.Masters) renderCategory('masters-grid', groupedStudents.Masters);
         if (groupedStudents.Bachelors) renderCategory('bachelors-grid', groupedStudents.Bachelors);
+        if (groupedStudents.Project) renderCategory('project-staff-grid', groupedStudents.Project);
         if (groupedStudents.Intern) renderCategory('intern-grid', groupedStudents.Intern);
 
     } catch (error) {

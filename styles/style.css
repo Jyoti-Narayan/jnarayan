@@ -15,6 +15,10 @@
     transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
 }
 
+html.skip-preloader #preloader {
+    display: none !important;
+}
+
 #preloader.fade-out {
     opacity: 0;
     visibility: hidden;
@@ -342,12 +346,13 @@
     }
 }
 
-/* Hide main content while loading */
-body.loading > *:not(#preloader) {
+/* Hide main content while the home page preloader is active */
+body.loading > *:not(#preloader):not(script) {
     opacity: 0;
 }
 
-body:not(.loading) > * {
+body:not(.loading) > *:not(script),
+html.skip-preloader body > *:not(#preloader):not(script) {
     opacity: 1;
     transition: opacity 0.3s ease-in;
 }
@@ -516,6 +521,7 @@ body:not(.loading) > * {
 
 .student-year,
 .student-thesis,
+.student-project-role,
 .student-supervisor {
     display: flex;
     align-items: center;
@@ -551,6 +557,7 @@ body:not(.loading) > * {
 /* Make sure inner items don't have large gaps */
 .student-item .student-info i,
 .student-item .student-year i,
+.student-item .student-project-role i,
 .student-item .student-thesis i {
     font-size: 0.9rem;
 }
@@ -1951,6 +1958,7 @@ main {
     .doctoral-students h4,
     .masters-students h4,
     .bachelors-students h4,
+    .project-staff h4,
     .intern-students h4 {
         font-size: 1.2rem;
     }
@@ -1966,6 +1974,7 @@ main {
     .doctoral-students h4,
     .masters-students h4,
     .bachelors-students h4,
+    .project-staff h4,
     .intern-students h4 {
         font-size: 1.1rem;
     }
@@ -2000,6 +2009,7 @@ main {
 }
 
 .student-thesis span,
+.student-project-role span,
 .student-supervisor span {
     color: var(--text-secondary);
     font-size: 1.15rem;
@@ -2011,6 +2021,7 @@ main {
 .doctoral-students h4,
 .masters-students h4,
 .bachelors-students h4,
+.project-staff h4,
 .intern-students h4 {
     font-size: var(--h4-size);
     font-weight: 600;
@@ -5192,6 +5203,7 @@ a:hover {
 .doctoral-students,
 .masters-students,
 .bachelors-students,
+.project-staff,
 .intern-students,
 .past-students {
     margin-bottom: 2rem;
@@ -5200,6 +5212,7 @@ a:hover {
 .doctoral-students h5,
 .masters-students h5,
 .bachelors-students h5,
+.project-staff h5,
 .intern-students h5 {
     font-size: 1.3rem;
     font-weight: 600;

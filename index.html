@@ -5,6 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SHRI Lab | IIT Patna</title>
+    <script>
+        window.shouldShowHomePreloader = !window.location.hash || window.location.hash === '#';
+        if (!window.shouldShowHomePreloader) {
+            document.documentElement.classList.add('skip-preloader');
+        }
+    </script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
@@ -87,7 +93,12 @@
     </script>
 </head>
 
-<body class="loading">
+<body>
+    <script>
+        if (window.shouldShowHomePreloader) {
+            document.body.classList.add('loading');
+        }
+    </script>
     <!-- Preloader -->
     <div id="preloader">
         <div class="loader-content">
@@ -500,6 +511,13 @@
                 </div>
             </div>
 
+            <div class="project-staff">
+                <h4><i class="fas fa-briefcase" style="color: #7a3db8;"></i> Project Staff</h4>
+                <div id="project-staff-grid" class="students-grid">
+                    <!-- Project staff will be populated dynamically, sorted by year -->
+                </div>
+            </div>
+
             <div class="intern-students">
                 <h4><i class="fas fa-user-graduate" style="color: #ff9900;"></i> Interns</h4>
                 <div id="intern-grid" class="students-grid">
@@ -610,6 +628,15 @@
     <!-- Preloader Script -->
     <script>
         (function() {
+            if (!window.shouldShowHomePreloader) {
+                const preloader = document.getElementById('preloader');
+                if (preloader) {
+                    preloader.style.display = 'none';
+                }
+                document.body.classList.remove('loading');
+                return;
+            }
+
             let preloaderHidden = false;
             let logosReady = false;
             // With multi-row scrolling keywords, all are visible at once
