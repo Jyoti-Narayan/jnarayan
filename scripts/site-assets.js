@@ -54,7 +54,7 @@ async function loadPreloaderLogos(assetMap) {
     
     const promises = [];
     
-    // Get institution logo URL
+    // Get institution logo URL - use local fallback if not in database
     if (assetMap['institution_logo']) {
         const logoUrl = window.convertGoogleDriveUrl 
             ? window.convertGoogleDriveUrl(assetMap['institution_logo'].asset_url) 
@@ -66,9 +66,14 @@ async function loadPreloaderLogos(assetMap) {
                     preloaderIitLogo.src = logoUrl;
                 })
                 .catch(() => {
-                    console.warn('Failed to load IIT logo for preloader');
+                    console.warn('Failed to load IIT logo from database, using local fallback');
+                    preloaderIitLogo.src = 'images/iitp-logo.png';
                 })
         );
+    } else {
+        // Use local fallback if no database asset
+        preloaderIitLogo.src = 'images/iitp-logo.png';
+        promises.push(Promise.resolve());
     }
     
     // Get lab logo URL
@@ -139,7 +144,7 @@ function applySiteAssets(assets) {
         console.log('Favicon (lab logo) loaded from database');
     }
 
-    // Apply institution logo (IIT Patna) to banner
+    // Apply institution logo (IIT Patna) to banner - with local fallback
     if (assetMap['institution_logo']) {
         const logoUrl = window.convertGoogleDriveUrl 
             ? window.convertGoogleDriveUrl(assetMap['institution_logo'].asset_url) 
@@ -151,6 +156,8 @@ function applySiteAssets(assets) {
                 this.classList.add('loaded');
             });
             img.addEventListener('error', function() {
+                console.warn('Failed to load institution logo from database, using local fallback');
+                this.src = 'images/iitp-logo.png';
                 this.classList.add('loaded');
             });
             img.src = logoUrl;
@@ -162,6 +169,15 @@ function applySiteAssets(assets) {
             }
         });
         console.log('Institution logo loaded from database');
+    } else {
+        // Use local fallback if no database asset
+        const institutionLogos = document.querySelectorAll('.institution-logo');
+        institutionLogos.forEach(img => {
+            if (!img.src || img.src === '') {
+                img.src = 'images/iitp-logo.png';
+                img.classList.add('loaded');
+            }
+        });
     }
 
     // Apply lab logo (SHRI Lab) to banner
